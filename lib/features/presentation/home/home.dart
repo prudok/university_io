@@ -46,6 +46,41 @@ class _HomeViewState extends State<HomeView> {
           ),
         ],
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => showDialog<void>(
+          context: context,
+          builder: (context) {
+            return Dialog(
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                child: Column(
+                  children: [
+                    Text(
+                      'Add New Teacher',
+                      style: Theme.of(context).textTheme.titleSmall,
+                    ),
+                    const SizedBox(height: 100),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        TextButton(
+                          onPressed: () => Navigator.of(context).pop(),
+                          child: const Text('Close'),
+                        ),
+                        TextButton(
+                          onPressed: () => Navigator.of(context).pop(),
+                          child: const Text('Add'),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            );
+          },
+        ),
+        child: const Icon(Icons.add),
+      ),
       body: Row(
         children: [
           NavigationRail(
