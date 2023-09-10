@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:education_portal/features/presentation/home/home.dart';
+import 'package:education_portal/features/presentation/teacher/teacher.dart';
 import 'package:injectable/injectable.dart';
 
 part 'app_router.gr.dart';
@@ -12,6 +13,9 @@ class AppRouter extends _$AppRouter {
         AutoRoute(
           initial: true,
           page: HomeRoute.page,
+          children: [
+            AutoRoute(page: TeacherRoute.page),
+          ],
         ),
       ];
 }
