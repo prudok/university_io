@@ -1,6 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:education_portal/common/themes/uni_theme.dart';
-import 'package:education_portal/features/presentation/teacher/teacher.dart';
+import 'package:education_portal/features/presentation/teacher/teacher_view.dart';
 import 'package:flutter/material.dart';
 
 @RoutePage()
@@ -90,7 +90,7 @@ class _HomeViewState extends State<HomeView> {
               setState(() => _selectedIndex = index);
               _pageController.animateToPage(
                 _selectedIndex,
-                duration: const Duration(milliseconds: 500),
+                duration: const Duration(milliseconds: 800),
                 curve: Curves.easeInOut,
               );
             },
@@ -107,6 +107,14 @@ class _HomeViewState extends State<HomeView> {
                 icon: Icon(Icons.play_lesson),
                 label: Text('Lessons'),
               ),
+              NavigationRailDestination(
+                icon: Icon(Icons.holiday_village),
+                label: Text('Buildings'),
+              ),
+              NavigationRailDestination(
+                icon: Icon(Icons.emoji_people),
+                label: Text('Teachers'),
+              ),
             ],
           ),
           Expanded(
@@ -115,6 +123,8 @@ class _HomeViewState extends State<HomeView> {
               onPageChanged: (index) => setState(() => _selectedIndex = index),
               scrollDirection: Axis.vertical,
               children: const [
+                TeacherView(),
+                TeacherView(),
                 TeacherView(),
                 TeacherView(),
                 TeacherView(),

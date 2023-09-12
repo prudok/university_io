@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:education_portal/common/initialization/initialization.dart';
 import 'package:education_portal/common/initialization/widgets/app.dart';
 import 'package:education_portal/common/initialization/widgets/app_error.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 void main() => runZonedGuarded<Future<void>>(
@@ -15,5 +16,10 @@ void main() => runZonedGuarded<Future<void>>(
         }
         runApp(const App());
       },
-      (error, stackTrace) {},
+      (error, stackTrace) {
+        if (kDebugMode) {
+          print(error);
+          print(stackTrace);
+        }
+      },
     );

@@ -1,6 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:education_portal/features/presentation/home/home.dart';
-import 'package:education_portal/features/presentation/teacher/teacher.dart';
+import 'package:education_portal/features/presentation/teacher/teacher_view.dart';
 import 'package:injectable/injectable.dart';
 
 part 'app_router.gr.dart';
