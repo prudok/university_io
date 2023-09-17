@@ -14,9 +14,9 @@ class TeacherView extends StatelessWidget {
         builder: (_, state) {
           return switch (state) {
             TeacherInitial() => const Center(child: CircularProgressIndicator()),
-            TeacherLoaded() => const Center(child: Icon(Icons.one_k)),
             TeacherLoading() => const Center(child: CircularProgressIndicator()),
             TeacherFailed() => Center(child: Text(state.errorMessage)),
+            TeacherLoaded() => const CustomScrollView(slivers: []),
           };
         },
       ),

@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:education_portal/common/themes/uni_theme.dart';
+import 'package:education_portal/features/presentation/home/widgets/data_form.dart';
+import 'package:education_portal/features/presentation/teacher/teacher_form.dart';
 import 'package:education_portal/features/presentation/teacher/teacher_view.dart';
 import 'package:flutter/material.dart';
 
@@ -21,14 +22,6 @@ class _HomeViewState extends State<HomeView> {
     _pageController = PageController(initialPage: _selectedIndex);
   }
 
-  void _updateTheme() {
-    if (Theme.of(context).brightness == Brightness.light) {
-      UniTheme.of(context)?.updateTheme(ThemeData.dark(useMaterial3: true));
-    } else {
-      UniTheme.of(context)?.updateTheme(ThemeData.light(useMaterial3: true));
-    }
-  }
-
   @override
   void dispose() {
     _pageController.dispose();
@@ -38,46 +31,15 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        actions: [
-          IconButton(
-            onPressed: _updateTheme,
-            icon: const Icon(Icons.light_mode),
-          ),
-        ],
-      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => showDialog<void>(
           context: context,
-          builder: (context) {
-            return Dialog(
-              child: SingleChildScrollView(
-                padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-                child: Column(
-                  children: [
-                    Text(
-                      'Add New Teacher',
-                      style: Theme.of(context).textTheme.titleSmall,
-                    ),
-                    const SizedBox(height: 100),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        TextButton(
-                          onPressed: () => Navigator.of(context).pop(),
-                          child: const Text('Close'),
-                        ),
-                        TextButton(
-                          onPressed: () => Navigator.of(context).pop(),
-                          child: const Text('Add'),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            );
-          },
+          builder: (_) => AlertDialog(
+            content: ConstrainedBox(
+              constraints: const BoxConstraints.expand(width: 300),
+              child: const DataForm(),
+            ),
+          ),
         ),
         child: const Icon(Icons.add),
       ),
@@ -123,7 +85,8 @@ class _HomeViewState extends State<HomeView> {
               onPageChanged: (index) => setState(() => _selectedIndex = index),
               scrollDirection: Axis.vertical,
               children: const [
-                TeacherView(),
+                TeacherForm(),
+                // TeacherView(),
                 TeacherView(),
                 TeacherView(),
                 TeacherView(),

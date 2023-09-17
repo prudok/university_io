@@ -11,4 +11,14 @@ class TeacherRepositoryImpl extends TeacherRepository {
   Future<void> delete(int id) {
     throw UnimplementedError();
   }
+
+  @override
+  Future<Teacher> get(int id) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<List<Teacher>> getAll() {
+    throw UnimplementedError();
+  }
 }
