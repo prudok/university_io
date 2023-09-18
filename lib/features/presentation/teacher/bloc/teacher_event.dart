@@ -6,7 +6,7 @@ sealed class TeacherEvent {}
 class TeacherAdd extends TeacherEvent {
   TeacherAdd({required this.teacher});
 
-  final Teacher teacher;
+  final TeachersCompanion teacher;
 }
 
 class TeacherRemove extends TeacherEvent {
@@ -14,3 +14,5 @@ class TeacherRemove extends TeacherEvent {
 
   final int id;
 }
+
+class TeacherLoad extends TeacherEvent {}

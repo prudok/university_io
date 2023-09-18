@@ -10,7 +10,7 @@ void main() => runZonedGuarded<Future<void>>(
       () async {
         try {
           await initializaApp();
-        } on Object catch (error, _) {
+        } on Object catch (_, __) {
           runApp(const AppError());
           return;
         }

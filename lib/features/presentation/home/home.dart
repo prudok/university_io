@@ -1,6 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:education_portal/features/presentation/home/widgets/data_form.dart';
-import 'package:education_portal/features/presentation/teacher/teacher_form.dart';
 import 'package:education_portal/features/presentation/teacher/teacher_view.dart';
 import 'package:flutter/material.dart';
 
@@ -85,8 +84,7 @@ class _HomeViewState extends State<HomeView> {
               onPageChanged: (index) => setState(() => _selectedIndex = index),
               scrollDirection: Axis.vertical,
               children: const [
-                TeacherForm(),
-                // TeacherView(),
+                TeacherView(),
                 TeacherView(),
                 TeacherView(),
                 TeacherView(),

@@ -1,5 +1,9 @@
+import 'package:drift/drift.dart' show Value;
 import 'package:education_portal/common/foundations/spacing_foundation.dart';
+import 'package:education_portal/features/data/datasource/databases/databases.dart';
+import 'package:education_portal/features/presentation/teacher/bloc/teacher_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class TeacherForm extends StatefulWidget {
   const TeacherForm({super.key});
@@ -17,11 +21,13 @@ class _TeacherFormState extends State<TeacherForm> {
   late final TextEditingController _phoneController;
   late final TextEditingController _adressController;
   late final TextEditingController _departmentController;
+  late final TeacherBloc teacherBloc;
   int _gender = 0;
 
   @override
   void initState() {
     super.initState();
+    teacherBloc = BlocProvider.of<TeacherBloc>(context);
     _nameController = TextEditingController();
     _surnameController = TextEditingController();
     _emailController = TextEditingController();
@@ -37,7 +43,6 @@ class _TeacherFormState extends State<TeacherForm> {
     _emailController.dispose();
     _phoneController.dispose();
     _adressController.dispose();
-    _nameController.dispose();
     _departmentController.dispose();
     super.dispose();
   }
@@ -113,6 +118,19 @@ class _TeacherFormState extends State<TeacherForm> {
                   if (Navigator.of(context).canPop()) {
                     Navigator.of(context).pop();
                   }
+                  teacherBloc.add(
+                    TeacherAdd(
+                      teacher: TeachersCompanion(
+                        firstName: Value(_nameController.text),
+                        lastName: Value(_surnameController.text),
+                        email: Value(_emailController.text),
+                        phoneNumber: Value(_phoneController.text),
+                        adress: Value(_adressController.text),
+                        gender: const Value('man'),
+                        departmentId: const Value(0),
+                      ),
+                    ),
+                  );
                 },
                 style: ElevatedButton.styleFrom(shadowColor: Colors.transparent),
                 child: const Text('Add'),
@@ -166,49 +184,3 @@ class AppFormField extends StatelessWidget {
     );
   }
 }
-
-// TextFormField(
-//         obscureText: isObscureText ?? false,
-//         validator: validator,
-//         controller: controller,
-//         decoration: InputDecoration(
-//           fillColor: AppColors.white,
-//           filled: true,
-//           errorBorder: OutlineInputBorder(
-//             borderRadius: BorderRadius.circular(10),
-//             borderSide: const BorderSide(color: Colors.white),
-//           ),
-//           isDense: true,
-//           contentPadding: const EdgeInsets.symmetric(
-//             horizontal: 10,
-//             vertical: 10,
-//           ),
-//           hintText: hintText,
-//           border: OutlineInputBorder(
-//             borderRadius: BorderRadius.circular(10),
-//             borderSide: BorderSide.none,
-//           ),
-//         ),
-//       ),TextFormField(
-//         obscureText: isObscureText ?? false,
-//         validator: validator,
-//         controller: controller,
-//         decoration: InputDecoration(
-//           fillColor: AppColors.white,
-//           filled: true,
-//           errorBorder: OutlineInputBorder(
-//             borderRadius: BorderRadius.circular(10),
-//             borderSide: const BorderSide(color: Colors.white),
-//           ),
-//           isDense: true,
-//           contentPadding: const EdgeInsets.symmetric(
-//             horizontal: 10,
-//             vertical: 10,
-//           ),
-//           hintText: hintText,
-//           border: OutlineInputBorder(
-//             borderRadius: BorderRadius.circular(10),
-//             borderSide: BorderSide.none,
-//           ),
-//         ),
-//       ),

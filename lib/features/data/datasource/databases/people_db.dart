@@ -16,6 +16,16 @@ class PeopleDatabase extends _$PeopleDatabase {
 
   @override
   int get schemaVersion => 1;
+
+  Future<List<Teacher>> get teachersList => select(teachers).get();
+
+  Future<void> deleteEverything() {
+    return transaction(() async {
+      for (final table in allTables) {
+        await delete(table).go();
+      }
+    });
+  }
 }
 
 LazyDatabase _openConnection() {

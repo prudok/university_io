@@ -1,15 +1,21 @@
-import 'package:education_portal/features/domain/entities/teacher.dart';
+import 'package:education_portal/features/data/datasource/databases/databases.dart';
 import 'package:education_portal/features/domain/repositories/teacher_repository.dart';
+import 'package:injectable/injectable.dart';
 
+@singleton
 class TeacherRepositoryImpl extends TeacherRepository {
+  TeacherRepositoryImpl({required PeopleDatabase db}) : _db = db;
+
+  final PeopleDatabase _db;
+
   @override
-  Future<void> add(Teacher teacher) {
-    throw UnimplementedError();
+  Future<void> add(TeachersCompanion teacher) async {
+    await _db.into(_db.teachers).insert(teacher);
   }
 
   @override
-  Future<void> delete(int id) {
-    throw UnimplementedError();
+  Future<void> delete(int id) async {
+    _db.delete(_db.teachers).where((tbl) => tbl.id.equals(id));
   }
 
   @override
@@ -19,6 +25,6 @@ class TeacherRepositoryImpl extends TeacherRepository {
 
   @override
   Future<List<Teacher>> getAll() {
-    throw UnimplementedError();
+    return _db.teachersList;
   }
 }

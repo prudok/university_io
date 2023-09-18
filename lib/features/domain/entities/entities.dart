@@ -8,4 +8,3 @@ export 'group.dart';
 export 'schedule.dart';
 export 'student.dart';
 export 'subject.dart';
-export 'teacher.dart';
