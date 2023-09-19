@@ -15,7 +15,7 @@ class TeacherRepositoryImpl extends TeacherRepository {
 
   @override
   Future<void> delete(int id) async {
-    _db.delete(_db.teachers).where((tbl) => tbl.id.equals(id));
+    await _db.deleteTeacher(id);
   }
 
   @override

@@ -1,5 +1,7 @@
 import 'package:drift/drift.dart' show Value;
 import 'package:education_portal/common/foundations/spacing_foundation.dart';
+import 'package:education_portal/common/ui_kit/ui_kit.dart';
+import 'package:education_portal/common/validator.dart';
 import 'package:education_portal/features/data/datasource/databases/databases.dart';
 import 'package:education_portal/features/presentation/teacher/bloc/teacher_bloc.dart';
 import 'package:flutter/material.dart';
@@ -23,6 +25,17 @@ class _TeacherFormState extends State<TeacherForm> {
   late final TextEditingController _departmentController;
   late final TeacherBloc teacherBloc;
   int _gender = 0;
+
+  String _getGenderValue() {
+    switch (_gender) {
+      case 1:
+        return 'man';
+      case 2:
+        return 'woman';
+      default:
+        return 'none';
+    }
+  }
 
   @override
   void initState() {
@@ -59,15 +72,17 @@ class _TeacherFormState extends State<TeacherForm> {
               'Teacher Form',
               style: Theme.of(context).textTheme.headlineSmall,
             ),
-            SpacingFoundation.verticalSpaceMedium,
+            SpacingFoundation.verticalSpaceSmall,
             AppFormField(
               controller: _nameController,
               labelName: 'Name',
+              validation: Validator.validName,
             ),
             SpacingFoundation.verticalSpaceSmall,
             AppFormField(
               controller: _surnameController,
               labelName: 'Surname',
+              validation: Validator.validSurname,
             ),
             SpacingFoundation.verticalSpaceSmall,
             AppFormField(
@@ -112,73 +127,34 @@ class _TeacherFormState extends State<TeacherForm> {
             ),
             SpacingFoundation.verticalSpaceMedium,
             SizedBox(
-              width: 200,
+              width: 300,
               child: ElevatedButton(
                 onPressed: () {
-                  if (Navigator.of(context).canPop()) {
-                    Navigator.of(context).pop();
-                  }
-                  teacherBloc.add(
-                    TeacherAdd(
-                      teacher: TeachersCompanion(
-                        firstName: Value(_nameController.text),
-                        lastName: Value(_surnameController.text),
-                        email: Value(_emailController.text),
-                        phoneNumber: Value(_phoneController.text),
-                        adress: Value(_adressController.text),
-                        gender: const Value('man'),
-                        departmentId: const Value(0),
+                  if (_formKey.currentState!.validate()) {
+                    if (Navigator.of(context).canPop()) {
+                      Navigator.of(context).pop();
+                    }
+
+                    teacherBloc.add(
+                      TeacherAdd(
+                        teacher: TeachersCompanion(
+                          firstName: Value(_nameController.text),
+                          lastName: Value(_surnameController.text),
+                          email: Value(_emailController.text),
+                          phoneNumber: Value(_phoneController.text),
+                          adress: Value(_adressController.text),
+                          gender: Value(_getGenderValue()),
+                          departmentId: const Value(0),
+                        ),
                       ),
-                    ),
-                  );
+                    );
+                  }
                 },
                 style: ElevatedButton.styleFrom(shadowColor: Colors.transparent),
                 child: const Text('Add'),
               ),
             ),
           ],
-        ),
-      ),
-    );
-  }
-}
-
-class AppFormField extends StatelessWidget {
-  const AppFormField({
-    required this.controller,
-    required this.labelName,
-    this.hintText,
-    super.key,
-  });
-
-  final TextEditingController controller;
-  final String labelName;
-  final String? hintText;
-
-  @override
-  Widget build(BuildContext context) {
-    return ConstrainedBox(
-      constraints: const BoxConstraints(maxWidth: 250),
-      child: TextFormField(
-        controller: controller,
-        decoration: InputDecoration(
-          label: Text(labelName),
-          hintText: hintText,
-          fillColor: Theme.of(context).dialogBackgroundColor,
-          filled: true,
-          errorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-            borderSide: const BorderSide(color: Colors.white),
-          ),
-          isDense: true,
-          contentPadding: const EdgeInsets.symmetric(
-            horizontal: 10,
-            vertical: 10,
-          ),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-            borderSide: BorderSide.none,
-          ),
         ),
       ),
     );

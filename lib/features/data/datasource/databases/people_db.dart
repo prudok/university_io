@@ -18,6 +18,7 @@ class PeopleDatabase extends _$PeopleDatabase {
   int get schemaVersion => 1;
 
   Future<List<Teacher>> get teachersList => select(teachers).get();
+  Future<List<Student>> get studentsList => select(students).get();
 
   Future<void> deleteEverything() {
     return transaction(() async {
@@ -25,6 +26,14 @@ class PeopleDatabase extends _$PeopleDatabase {
         await delete(table).go();
       }
     });
+  }
+
+  Future<int> deleteTeacher(int id) async {
+    return (delete(teachers)..where((t) => t.id.equals(id))).go();
+  }
+
+  Future<int> deleteStudent(int id) async {
+    return (delete(students)..where((t) => t.id.equals(id))).go();
   }
 }
 

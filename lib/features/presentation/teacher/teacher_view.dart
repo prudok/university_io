@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:education_portal/features/presentation/teacher/bloc/teacher_bloc.dart';
+import 'package:education_portal/features/presentation/teacher/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -9,44 +10,20 @@ class TeacherView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final teacherBloc = BlocProvider.of<TeacherBloc>(context);
-
     return Scaffold(
       body: BlocBuilder<TeacherBloc, TeacherState>(
         builder: (_, state) {
           return switch (state) {
-            TeacherInitial() => const Center(child: CircularProgressIndicator()),
-            TeacherLoading() => const Center(child: CircularProgressIndicator()),
-            TeacherFailed() => Center(child: Text(state.errorMessage)),
-            TeacherLoaded() => CustomScrollView(
-                slivers: [
-                  SliverList.separated(
-                    itemCount: state.teachers.length,
-                    itemBuilder: (_, index) {
-                      final teacher = state.teachers[index];
-                      return ListTile(
-                        leading: const Icon(Icons.people, size: 15),
-                        title: Text(teacher.firstName),
-                        subtitle: Row(
-                          children: [
-                            Text('${teacher.lastName}, '),
-                            if (teacher.gender != null) Text(teacher.gender!),
-                          ],
-                        ),
-                        trailing: Wrap(
-                          children: [
-                            IconButton(
-                              onPressed: () => teacherBloc.add(TeacherRemove(id: teacher.id)),
-                              icon: const Icon(Icons.remove, size: 15),
-                            ),
-                          ],
-                        ),
-                      );
-                    },
-                    separatorBuilder: (_, __) => const Divider(),
-                  ),
-                ],
-              ),
+            final TeacherInitial _ => const Center(child: CircularProgressIndicator()),
+            final TeacherLoading _ => const Center(child: CircularProgressIndicator()),
+            final TeacherFailed error => Center(child: Text(error.errorMessage)),
+            final TeacherLoaded state => state.teachers.isNotEmpty
+                ? CustomScrollView(
+                    slivers: [
+                      TeacherList(teachers: state.teachers),
+                    ],
+                  )
+                : const Center(child: Text('No Teachers Found.')),
           };
         },
       ),

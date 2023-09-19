@@ -1,5 +1,6 @@
 import 'package:education_portal/common/foundations/spacing_foundation.dart';
-import 'package:education_portal/features/presentation/teacher/teacher_form.dart';
+import 'package:education_portal/features/presentation/student/widgets/student_form.dart';
+import 'package:education_portal/features/presentation/teacher/widgets/teacher_form.dart';
 import 'package:flutter/material.dart';
 
 class DataForm extends StatefulWidget {
@@ -31,22 +32,22 @@ class _DataFormState extends State<DataForm> with TickerProviderStateMixin {
         TabBar(
           controller: _tabController,
           tabs: const [
+            Tab(icon: Icon(Icons.people)),
+            Tab(icon: Icon(Icons.library_add)),
+            Tab(icon: Icon(Icons.library_add)),
+            Tab(icon: Icon(Icons.library_add)),
             Tab(icon: Icon(Icons.man)),
-            Tab(icon: Icon(Icons.directions_transit)),
-            Tab(icon: Icon(Icons.library_add)),
-            Tab(icon: Icon(Icons.library_add)),
-            Tab(icon: Icon(Icons.library_add)),
           ],
         ),
         Expanded(
           child: TabBarView(
             controller: _tabController,
             children: const [
+              StudentForm(),
+              Center(child: Text('some text')),
+              Center(child: Text('some text')),
+              Center(child: Text('some text')),
               TeacherForm(),
-              Center(child: Text('some text')),
-              Center(child: Text('some text')),
-              Center(child: Text('some text')),
-              Center(child: Text('some text')),
             ],
           ),
         ),
