@@ -7,12 +7,19 @@ import 'package:injectable/injectable.dart';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
 
-part 'people_db.g.dart';
+part 'university_db.g.dart';
 
 @singleton
-@DriftDatabase(tables: [Teachers, Students])
-class PeopleDatabase extends _$PeopleDatabase {
-  PeopleDatabase() : super(_openConnection());
+@DriftDatabase(
+  tables: [
+    Teachers,
+    Students,
+    Department,
+    DepartmentTeacherLink,
+  ],
+)
+class UniversityDatabase extends _$UniversityDatabase {
+  UniversityDatabase() : super(_openConnection());
 
   @override
   int get schemaVersion => 1;

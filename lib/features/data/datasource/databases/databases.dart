@@ -1,1 +1,1 @@
-export 'people_db.dart';
+export 'university_db.dart';

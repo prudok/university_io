@@ -20,9 +20,6 @@ class _TeacherFormState extends State<TeacherForm> {
   late final TextEditingController _nameController;
   late final TextEditingController _surnameController;
   late final TextEditingController _emailController;
-  late final TextEditingController _phoneController;
-  late final TextEditingController _adressController;
-  late final TextEditingController _departmentController;
   late final TeacherBloc teacherBloc;
   int _gender = 0;
 
@@ -44,9 +41,6 @@ class _TeacherFormState extends State<TeacherForm> {
     _nameController = TextEditingController();
     _surnameController = TextEditingController();
     _emailController = TextEditingController();
-    _phoneController = TextEditingController();
-    _adressController = TextEditingController();
-    _departmentController = TextEditingController();
   }
 
   @override
@@ -54,9 +48,6 @@ class _TeacherFormState extends State<TeacherForm> {
     _nameController.dispose();
     _surnameController.dispose();
     _emailController.dispose();
-    _phoneController.dispose();
-    _adressController.dispose();
-    _departmentController.dispose();
     super.dispose();
   }
 
@@ -90,23 +81,6 @@ class _TeacherFormState extends State<TeacherForm> {
               labelName: 'Email',
             ),
             SpacingFoundation.verticalSpaceSmall,
-            AppFormField(
-              controller: _phoneController,
-              labelName: 'Phone Number',
-            ),
-            SpacingFoundation.verticalSpaceSmall,
-            AppFormField(
-              controller: _adressController,
-              labelName: 'Adress',
-              hintText: 'Teacher Adress',
-            ),
-            SpacingFoundation.verticalSpaceSmall,
-            AppFormField(
-              controller: _departmentController,
-              labelName: 'Department',
-              hintText: 'Enter ID of the Department',
-            ),
-            SpacingFoundation.verticalSpaceMedium,
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -141,10 +115,7 @@ class _TeacherFormState extends State<TeacherForm> {
                           firstName: Value(_nameController.text),
                           lastName: Value(_surnameController.text),
                           email: Value(_emailController.text),
-                          phoneNumber: Value(_phoneController.text),
-                          adress: Value(_adressController.text),
                           gender: Value(_getGenderValue()),
-                          departmentId: const Value(0),
                         ),
                       ),
                     );

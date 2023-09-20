@@ -4,9 +4,9 @@ import 'package:injectable/injectable.dart';
 
 @singleton
 class TeacherRepositoryImpl extends TeacherRepository {
-  TeacherRepositoryImpl({required PeopleDatabase db}) : _db = db;
+  TeacherRepositoryImpl({required UniversityDatabase db}) : _db = db;
 
-  final PeopleDatabase _db;
+  final UniversityDatabase _db;
 
   @override
   Future<void> add(TeachersCompanion teacher) async {

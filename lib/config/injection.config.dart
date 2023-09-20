@@ -12,7 +12,7 @@
 import 'package:education_portal/config/app_router.dart' as _i3;
 import 'package:education_portal/features/data/datasource/databases/databases.dart'
     as _i6;
-import 'package:education_portal/features/data/datasource/databases/people_db.dart'
+import 'package:education_portal/features/data/datasource/databases/university_db.dart'
     as _i4;
 import 'package:education_portal/features/data/repositories_impl/repositories_impl.dart'
     as _i9;
@@ -39,11 +39,11 @@ extension GetItInjectableX on _i1.GetIt {
       environmentFilter,
     );
     gh.singleton<_i3.AppRouter>(_i3.AppRouter());
-    gh.singleton<_i4.PeopleDatabase>(_i4.PeopleDatabase());
+    gh.singleton<_i4.UniversityDatabase>(_i4.UniversityDatabase());
     gh.singleton<_i5.StudentRepositoryImpl>(
-        _i5.StudentRepositoryImpl(db: gh<_i6.PeopleDatabase>()));
+        _i5.StudentRepositoryImpl(db: gh<_i6.UniversityDatabase>()));
     gh.singleton<_i7.TeacherRepositoryImpl>(
-        _i7.TeacherRepositoryImpl(db: gh<_i6.PeopleDatabase>()));
+        _i7.TeacherRepositoryImpl(db: gh<_i6.UniversityDatabase>()));
     gh.factory<_i8.StudentBloc>(
         () => _i8.StudentBloc(gh<_i9.StudentRepositoryImpl>()));
     gh.factory<_i10.TeacherBloc>(
