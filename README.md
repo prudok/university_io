@@ -1,16 +1,61 @@
-# education_portal
+# Учебный администрационно-аналитический портал
 
-A new Flutter project.
+Это репозиторий проекта на Flutter для Учебного администрационно-аналитического портала. Этот портал предоставляет возможности для администраторов учебных заведений и аналитиков для управления и анализа данных о студентах, преподавателях, расписании и других аспектах образовательного процесса.
 
-## Getting Started
+## Функциональность
 
-This project is a starting point for a Flutter application.
+- Управление профилями студентов и преподавателей
+- Управление расписанием занятий
+- Слежение за успеваемостью студентов
+- Генерация отчетов и статистики
 
-A few resources to get you started if this is your first Flutter project:
+## Технические требования
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- Flutter версии 3.13.4 и выше
+- Dart версии 3.1.2 и выше
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Установка
+
+1. Установите [Flutter SDK](https://flutter.dev/docs/get-started/install) на ваш компьютер.
+2. Клонируйте этот репозиторий с помощью команды:
+
+   ```shell
+   git clone https://github.com/rel1nce/university_io.git
+   ```
+
+3. Перейдите в папку проекта:
+
+   ```shell
+   cd university_io
+   ```
+
+4. Запустите приложение:
+
+   ```shell
+   flutter run
+   ```
+
+## Вклад в проект
+
+Если вы хотите внести свой вклад в развитие этого проекта, воспользуйтесь следующими шагами:
+
+1. Создайте форк этого репозитория.
+2. Создайте свою ветку разработки:
+
+   ```shell
+   git checkout -b ваша-ветка
+   ```
+
+3. Внесите необходимые изменения в код.
+4. Проверьте свои изменения:
+
+   ```shell
+   flutter analyze
+   ```
+
+5. Закоммитьте и запушьте изменения в ваш форк.
+6. Создайте pull request из вашей ветки разработки в ветку `main` этого репозитория.
+
+## Контакты
+
+Если у вас есть какие-либо вопросы или предложения, свяжитесь со мной по адресу romanprudchen@gmail.com.
