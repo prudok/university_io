@@ -1,4 +1,4 @@
-import 'package:education_portal/features/data/datasource/databases/university_db.dart';
+import 'package:education_portal/features/data/datasource/database/university_db.dart';
 
 abstract class TeacherRepository {
   Future<void> add(TeachersCompanion teacher);

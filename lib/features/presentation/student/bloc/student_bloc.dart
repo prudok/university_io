@@ -1,5 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:education_portal/features/data/datasource/databases/university_db.dart';
+import 'package:education_portal/features/data/datasource/database/university_db.dart';
 import 'package:education_portal/features/data/repositories_impl/repositories_impl.dart';
 import 'package:injectable/injectable.dart';
 import 'package:meta/meta.dart';

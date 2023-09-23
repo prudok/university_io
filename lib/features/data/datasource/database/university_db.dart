@@ -15,6 +15,7 @@ part 'university_db.g.dart';
     Teachers,
     Events,
     Students,
+    Projects,
     Department,
     DepartmentTeacherLink,
   ],
