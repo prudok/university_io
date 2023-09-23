@@ -1,6 +1,8 @@
 import 'package:education_portal/config/config.dart';
 import 'package:education_portal/features/data/repositories_impl/repositories_impl.dart';
+import 'package:education_portal/features/presentation/department/bloc/department_bloc.dart';
 import 'package:education_portal/features/presentation/event/bloc/event_bloc.dart';
+import 'package:education_portal/features/presentation/project/bloc/project_bloc.dart';
 import 'package:education_portal/features/presentation/student/bloc/student_bloc.dart';
 import 'package:education_portal/features/presentation/teacher/bloc/teacher_bloc.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +23,12 @@ class App extends StatelessWidget {
         ),
         BlocProvider(
           create: (_) => EventBloc(getIt<EventRepositoryImpl>())..add(EventLoad()),
+        ),
+        BlocProvider(
+          create: (_) => ProjectBloc(getIt<ProjectRepositoryImpl>())..add(ProjectLoad()),
+        ),
+        BlocProvider(
+          create: (_) => DepartmentBloc(getIt<DepartmentRepositoryImpl>())..add(DepartmentLoad()),
         ),
       ],
       child: MaterialApp.router(

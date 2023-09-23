@@ -15,6 +15,12 @@ abstract class _$AppRouter extends RootStackRouter {
 
   @override
   final Map<String, PageFactory> pagesMap = {
+    DepartmentRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const DepartmentView(),
+      );
+    },
     EventRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -25,6 +31,12 @@ abstract class _$AppRouter extends RootStackRouter {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const HomeView(),
+      );
+    },
+    ProjectRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const ProjectView(),
       );
     },
     StudentRoute.name: (routeData) {
@@ -40,6 +52,20 @@ abstract class _$AppRouter extends RootStackRouter {
       );
     },
   };
+}
+
+/// generated route for
+/// [DepartmentView]
+class DepartmentRoute extends PageRouteInfo<void> {
+  const DepartmentRoute({List<PageRouteInfo>? children})
+      : super(
+          DepartmentRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'DepartmentRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
 }
 
 /// generated route for
@@ -66,6 +92,20 @@ class HomeRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'HomeRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [ProjectView]
+class ProjectRoute extends PageRouteInfo<void> {
+  const ProjectRoute({List<PageRouteInfo>? children})
+      : super(
+          ProjectRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'ProjectRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }

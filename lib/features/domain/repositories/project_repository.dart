@@ -1,8 +1,8 @@
 import 'package:education_portal/features/data/datasource/database/university_db.dart';
 
-abstract class EventRepository {
-  Future<void> add(EventsCompanion event);
+abstract class ProjectRepository {
+  Future<void> add(ProjectsCompanion project);
   Future<void> delete(int id);
-  Future<Event> get(int id);
-  Future<List<Event>> getAll();
+  Future<Project> get(int id);
+  Future<List<Project>> getAll();
 }

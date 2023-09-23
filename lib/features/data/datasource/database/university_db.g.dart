@@ -780,12 +780,219 @@ class StudentsCompanion extends UpdateCompanion<Student> {
   }
 }
 
-class $DepartmentTable extends Department
-    with TableInfo<$DepartmentTable, DepartmentData> {
+class $ProjectsTable extends Projects with TableInfo<$ProjectsTable, Project> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $DepartmentTable(this.attachedDatabase, [this._alias]);
+  $ProjectsTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+      'id', aliasedName, false,
+      hasAutoIncrement: true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _titleMeta = const VerificationMeta('title');
+  @override
+  late final GeneratedColumn<String> title = GeneratedColumn<String>(
+      'title', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _descriptionMeta =
+      const VerificationMeta('description');
+  @override
+  late final GeneratedColumn<String> description = GeneratedColumn<String>(
+      'description', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  @override
+  List<GeneratedColumn> get $columns => [id, title, description];
+  @override
+  String get aliasedName => _alias ?? 'projects';
+  @override
+  String get actualTableName => 'projects';
+  @override
+  VerificationContext validateIntegrity(Insertable<Project> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('title')) {
+      context.handle(
+          _titleMeta, title.isAcceptableOrUnknown(data['title']!, _titleMeta));
+    } else if (isInserting) {
+      context.missing(_titleMeta);
+    }
+    if (data.containsKey('description')) {
+      context.handle(
+          _descriptionMeta,
+          description.isAcceptableOrUnknown(
+              data['description']!, _descriptionMeta));
+    } else if (isInserting) {
+      context.missing(_descriptionMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  Project map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return Project(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      title: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}title'])!,
+      description: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}description'])!,
+    );
+  }
+
+  @override
+  $ProjectsTable createAlias(String alias) {
+    return $ProjectsTable(attachedDatabase, alias);
+  }
+}
+
+class Project extends DataClass implements Insertable<Project> {
+  final int id;
+  final String title;
+  final String description;
+  const Project(
+      {required this.id, required this.title, required this.description});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['title'] = Variable<String>(title);
+    map['description'] = Variable<String>(description);
+    return map;
+  }
+
+  ProjectsCompanion toCompanion(bool nullToAbsent) {
+    return ProjectsCompanion(
+      id: Value(id),
+      title: Value(title),
+      description: Value(description),
+    );
+  }
+
+  factory Project.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return Project(
+      id: serializer.fromJson<int>(json['id']),
+      title: serializer.fromJson<String>(json['title']),
+      description: serializer.fromJson<String>(json['description']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'title': serializer.toJson<String>(title),
+      'description': serializer.toJson<String>(description),
+    };
+  }
+
+  Project copyWith({int? id, String? title, String? description}) => Project(
+        id: id ?? this.id,
+        title: title ?? this.title,
+        description: description ?? this.description,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('Project(')
+          ..write('id: $id, ')
+          ..write('title: $title, ')
+          ..write('description: $description')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(id, title, description);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is Project &&
+          other.id == this.id &&
+          other.title == this.title &&
+          other.description == this.description);
+}
+
+class ProjectsCompanion extends UpdateCompanion<Project> {
+  final Value<int> id;
+  final Value<String> title;
+  final Value<String> description;
+  const ProjectsCompanion({
+    this.id = const Value.absent(),
+    this.title = const Value.absent(),
+    this.description = const Value.absent(),
+  });
+  ProjectsCompanion.insert({
+    this.id = const Value.absent(),
+    required String title,
+    required String description,
+  })  : title = Value(title),
+        description = Value(description);
+  static Insertable<Project> custom({
+    Expression<int>? id,
+    Expression<String>? title,
+    Expression<String>? description,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (title != null) 'title': title,
+      if (description != null) 'description': description,
+    });
+  }
+
+  ProjectsCompanion copyWith(
+      {Value<int>? id, Value<String>? title, Value<String>? description}) {
+    return ProjectsCompanion(
+      id: id ?? this.id,
+      title: title ?? this.title,
+      description: description ?? this.description,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (title.present) {
+      map['title'] = Variable<String>(title.value);
+    }
+    if (description.present) {
+      map['description'] = Variable<String>(description.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('ProjectsCompanion(')
+          ..write('id: $id, ')
+          ..write('title: $title, ')
+          ..write('description: $description')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $DepartmentsTable extends Departments
+    with TableInfo<$DepartmentsTable, Department> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $DepartmentsTable(this.attachedDatabase, [this._alias]);
   static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
@@ -803,11 +1010,11 @@ class $DepartmentTable extends Department
   @override
   List<GeneratedColumn> get $columns => [id, name];
   @override
-  String get aliasedName => _alias ?? 'department';
+  String get aliasedName => _alias ?? 'departments';
   @override
-  String get actualTableName => 'department';
+  String get actualTableName => 'departments';
   @override
-  VerificationContext validateIntegrity(Insertable<DepartmentData> instance,
+  VerificationContext validateIntegrity(Insertable<Department> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
@@ -826,9 +1033,9 @@ class $DepartmentTable extends Department
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
-  DepartmentData map(Map<String, dynamic> data, {String? tablePrefix}) {
+  Department map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return DepartmentData(
+    return Department(
       id: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
       name: attachedDatabase.typeMapping
@@ -837,15 +1044,15 @@ class $DepartmentTable extends Department
   }
 
   @override
-  $DepartmentTable createAlias(String alias) {
-    return $DepartmentTable(attachedDatabase, alias);
+  $DepartmentsTable createAlias(String alias) {
+    return $DepartmentsTable(attachedDatabase, alias);
   }
 }
 
-class DepartmentData extends DataClass implements Insertable<DepartmentData> {
+class Department extends DataClass implements Insertable<Department> {
   final int id;
   final String name;
-  const DepartmentData({required this.id, required this.name});
+  const Department({required this.id, required this.name});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -854,17 +1061,17 @@ class DepartmentData extends DataClass implements Insertable<DepartmentData> {
     return map;
   }
 
-  DepartmentCompanion toCompanion(bool nullToAbsent) {
-    return DepartmentCompanion(
+  DepartmentsCompanion toCompanion(bool nullToAbsent) {
+    return DepartmentsCompanion(
       id: Value(id),
       name: Value(name),
     );
   }
 
-  factory DepartmentData.fromJson(Map<String, dynamic> json,
+  factory Department.fromJson(Map<String, dynamic> json,
       {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
-    return DepartmentData(
+    return Department(
       id: serializer.fromJson<int>(json['id']),
       name: serializer.fromJson<String>(json['name']),
     );
@@ -878,13 +1085,13 @@ class DepartmentData extends DataClass implements Insertable<DepartmentData> {
     };
   }
 
-  DepartmentData copyWith({int? id, String? name}) => DepartmentData(
+  Department copyWith({int? id, String? name}) => Department(
         id: id ?? this.id,
         name: name ?? this.name,
       );
   @override
   String toString() {
-    return (StringBuffer('DepartmentData(')
+    return (StringBuffer('Department(')
           ..write('id: $id, ')
           ..write('name: $name')
           ..write(')'))
@@ -896,23 +1103,21 @@ class DepartmentData extends DataClass implements Insertable<DepartmentData> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      (other is DepartmentData &&
-          other.id == this.id &&
-          other.name == this.name);
+      (other is Department && other.id == this.id && other.name == this.name);
 }
 
-class DepartmentCompanion extends UpdateCompanion<DepartmentData> {
+class DepartmentsCompanion extends UpdateCompanion<Department> {
   final Value<int> id;
   final Value<String> name;
-  const DepartmentCompanion({
+  const DepartmentsCompanion({
     this.id = const Value.absent(),
     this.name = const Value.absent(),
   });
-  DepartmentCompanion.insert({
+  DepartmentsCompanion.insert({
     this.id = const Value.absent(),
     required String name,
   }) : name = Value(name);
-  static Insertable<DepartmentData> custom({
+  static Insertable<Department> custom({
     Expression<int>? id,
     Expression<String>? name,
   }) {
@@ -922,8 +1127,8 @@ class DepartmentCompanion extends UpdateCompanion<DepartmentData> {
     });
   }
 
-  DepartmentCompanion copyWith({Value<int>? id, Value<String>? name}) {
-    return DepartmentCompanion(
+  DepartmentsCompanion copyWith({Value<int>? id, Value<String>? name}) {
+    return DepartmentsCompanion(
       id: id ?? this.id,
       name: name ?? this.name,
     );
@@ -943,7 +1148,7 @@ class DepartmentCompanion extends UpdateCompanion<DepartmentData> {
 
   @override
   String toString() {
-    return (StringBuffer('DepartmentCompanion(')
+    return (StringBuffer('DepartmentsCompanion(')
           ..write('id: $id, ')
           ..write('name: $name')
           ..write(')'))
@@ -951,12 +1156,12 @@ class DepartmentCompanion extends UpdateCompanion<DepartmentData> {
   }
 }
 
-class $DepartmentTeacherLinkTable extends DepartmentTeacherLink
-    with TableInfo<$DepartmentTeacherLinkTable, DepartmentTeacherLinkData> {
+class $DepartmentTeacherLinksTable extends DepartmentTeacherLinks
+    with TableInfo<$DepartmentTeacherLinksTable, DepartmentTeacherLink> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $DepartmentTeacherLinkTable(this.attachedDatabase, [this._alias]);
+  $DepartmentTeacherLinksTable(this.attachedDatabase, [this._alias]);
   static const VerificationMeta _departmentIdMeta =
       const VerificationMeta('departmentId');
   @override
@@ -972,12 +1177,12 @@ class $DepartmentTeacherLinkTable extends DepartmentTeacherLink
   @override
   List<GeneratedColumn> get $columns => [departmentId, teacherId];
   @override
-  String get aliasedName => _alias ?? 'department_teacher_link';
+  String get aliasedName => _alias ?? 'department_teacher_links';
   @override
-  String get actualTableName => 'department_teacher_link';
+  String get actualTableName => 'department_teacher_links';
   @override
   VerificationContext validateIntegrity(
-      Insertable<DepartmentTeacherLinkData> instance,
+      Insertable<DepartmentTeacherLink> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
@@ -1001,10 +1206,9 @@ class $DepartmentTeacherLinkTable extends DepartmentTeacherLink
   @override
   Set<GeneratedColumn> get $primaryKey => const {};
   @override
-  DepartmentTeacherLinkData map(Map<String, dynamic> data,
-      {String? tablePrefix}) {
+  DepartmentTeacherLink map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return DepartmentTeacherLinkData(
+    return DepartmentTeacherLink(
       departmentId: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}department_id'])!,
       teacherId: attachedDatabase.typeMapping
@@ -1013,16 +1217,16 @@ class $DepartmentTeacherLinkTable extends DepartmentTeacherLink
   }
 
   @override
-  $DepartmentTeacherLinkTable createAlias(String alias) {
-    return $DepartmentTeacherLinkTable(attachedDatabase, alias);
+  $DepartmentTeacherLinksTable createAlias(String alias) {
+    return $DepartmentTeacherLinksTable(attachedDatabase, alias);
   }
 }
 
-class DepartmentTeacherLinkData extends DataClass
-    implements Insertable<DepartmentTeacherLinkData> {
+class DepartmentTeacherLink extends DataClass
+    implements Insertable<DepartmentTeacherLink> {
   final int departmentId;
   final int teacherId;
-  const DepartmentTeacherLinkData(
+  const DepartmentTeacherLink(
       {required this.departmentId, required this.teacherId});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
@@ -1032,17 +1236,17 @@ class DepartmentTeacherLinkData extends DataClass
     return map;
   }
 
-  DepartmentTeacherLinkCompanion toCompanion(bool nullToAbsent) {
-    return DepartmentTeacherLinkCompanion(
+  DepartmentTeacherLinksCompanion toCompanion(bool nullToAbsent) {
+    return DepartmentTeacherLinksCompanion(
       departmentId: Value(departmentId),
       teacherId: Value(teacherId),
     );
   }
 
-  factory DepartmentTeacherLinkData.fromJson(Map<String, dynamic> json,
+  factory DepartmentTeacherLink.fromJson(Map<String, dynamic> json,
       {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
-    return DepartmentTeacherLinkData(
+    return DepartmentTeacherLink(
       departmentId: serializer.fromJson<int>(json['departmentId']),
       teacherId: serializer.fromJson<int>(json['teacherId']),
     );
@@ -1056,14 +1260,14 @@ class DepartmentTeacherLinkData extends DataClass
     };
   }
 
-  DepartmentTeacherLinkData copyWith({int? departmentId, int? teacherId}) =>
-      DepartmentTeacherLinkData(
+  DepartmentTeacherLink copyWith({int? departmentId, int? teacherId}) =>
+      DepartmentTeacherLink(
         departmentId: departmentId ?? this.departmentId,
         teacherId: teacherId ?? this.teacherId,
       );
   @override
   String toString() {
-    return (StringBuffer('DepartmentTeacherLinkData(')
+    return (StringBuffer('DepartmentTeacherLink(')
           ..write('departmentId: $departmentId, ')
           ..write('teacherId: $teacherId')
           ..write(')'))
@@ -1075,28 +1279,28 @@ class DepartmentTeacherLinkData extends DataClass
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      (other is DepartmentTeacherLinkData &&
+      (other is DepartmentTeacherLink &&
           other.departmentId == this.departmentId &&
           other.teacherId == this.teacherId);
 }
 
-class DepartmentTeacherLinkCompanion
-    extends UpdateCompanion<DepartmentTeacherLinkData> {
+class DepartmentTeacherLinksCompanion
+    extends UpdateCompanion<DepartmentTeacherLink> {
   final Value<int> departmentId;
   final Value<int> teacherId;
   final Value<int> rowid;
-  const DepartmentTeacherLinkCompanion({
+  const DepartmentTeacherLinksCompanion({
     this.departmentId = const Value.absent(),
     this.teacherId = const Value.absent(),
     this.rowid = const Value.absent(),
   });
-  DepartmentTeacherLinkCompanion.insert({
+  DepartmentTeacherLinksCompanion.insert({
     required int departmentId,
     required int teacherId,
     this.rowid = const Value.absent(),
   })  : departmentId = Value(departmentId),
         teacherId = Value(teacherId);
-  static Insertable<DepartmentTeacherLinkData> custom({
+  static Insertable<DepartmentTeacherLink> custom({
     Expression<int>? departmentId,
     Expression<int>? teacherId,
     Expression<int>? rowid,
@@ -1108,9 +1312,9 @@ class DepartmentTeacherLinkCompanion
     });
   }
 
-  DepartmentTeacherLinkCompanion copyWith(
+  DepartmentTeacherLinksCompanion copyWith(
       {Value<int>? departmentId, Value<int>? teacherId, Value<int>? rowid}) {
-    return DepartmentTeacherLinkCompanion(
+    return DepartmentTeacherLinksCompanion(
       departmentId: departmentId ?? this.departmentId,
       teacherId: teacherId ?? this.teacherId,
       rowid: rowid ?? this.rowid,
@@ -1134,7 +1338,7 @@ class DepartmentTeacherLinkCompanion
 
   @override
   String toString() {
-    return (StringBuffer('DepartmentTeacherLinkCompanion(')
+    return (StringBuffer('DepartmentTeacherLinksCompanion(')
           ..write('departmentId: $departmentId, ')
           ..write('teacherId: $teacherId, ')
           ..write('rowid: $rowid')
@@ -1148,13 +1352,20 @@ abstract class _$UniversityDatabase extends GeneratedDatabase {
   late final $TeachersTable teachers = $TeachersTable(this);
   late final $EventsTable events = $EventsTable(this);
   late final $StudentsTable students = $StudentsTable(this);
-  late final $DepartmentTable department = $DepartmentTable(this);
-  late final $DepartmentTeacherLinkTable departmentTeacherLink =
-      $DepartmentTeacherLinkTable(this);
+  late final $ProjectsTable projects = $ProjectsTable(this);
+  late final $DepartmentsTable departments = $DepartmentsTable(this);
+  late final $DepartmentTeacherLinksTable departmentTeacherLinks =
+      $DepartmentTeacherLinksTable(this);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
   @override
-  List<DatabaseSchemaEntity> get allSchemaEntities =>
-      [teachers, events, students, department, departmentTeacherLink];
+  List<DatabaseSchemaEntity> get allSchemaEntities => [
+        teachers,
+        events,
+        students,
+        projects,
+        departments,
+        departmentTeacherLinks
+      ];
 }

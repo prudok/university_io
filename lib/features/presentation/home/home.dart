@@ -1,8 +1,11 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:education_portal/features/presentation/department/department_view.dart';
 import 'package:education_portal/features/presentation/event/event_view.dart';
 import 'package:education_portal/features/presentation/home/widgets/data_form.dart';
+import 'package:education_portal/features/presentation/project/project_view.dart';
 import 'package:education_portal/features/presentation/student/student_view.dart';
 import 'package:education_portal/features/presentation/teacher/teacher_view.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 @RoutePage()
@@ -67,16 +70,20 @@ class _HomeViewState extends State<HomeView> {
                 label: Text('Events'),
               ),
               NavigationRailDestination(
-                icon: Icon(Icons.play_lesson),
-                label: Text('Lessons'),
+                icon: Icon(CupertinoIcons.table),
+                label: Text('Projects'),
               ),
               NavigationRailDestination(
                 icon: Icon(Icons.holiday_village),
                 label: Text('Buildings'),
               ),
               NavigationRailDestination(
-                icon: Icon(Icons.emoji_people),
+                icon: Icon(CupertinoIcons.person_2_alt),
                 label: Text('Teachers'),
+              ),
+              NavigationRailDestination(
+                icon: Icon(CupertinoIcons.collections),
+                label: Text('Departments'),
               ),
             ],
           ),
@@ -88,9 +95,10 @@ class _HomeViewState extends State<HomeView> {
               children: const [
                 StudentView(),
                 EventView(),
-                Center(child: Text('Lessons')),
+                ProjectView(),
                 Center(child: Text('Buildings')),
                 TeacherView(),
+                DepartmentView(),
               ],
             ),
           ),

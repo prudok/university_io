@@ -1,7 +1,10 @@
 import 'package:education_portal/common/foundations/spacing_foundation.dart';
+import 'package:education_portal/features/presentation/department/widgets/deparment_form.dart';
 import 'package:education_portal/features/presentation/event/widgets/event_form.dart';
+import 'package:education_portal/features/presentation/project/widgets/project_form.dart';
 import 'package:education_portal/features/presentation/student/widgets/student_form.dart';
 import 'package:education_portal/features/presentation/teacher/widgets/teacher_form.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class DataForm extends StatefulWidget {
@@ -34,10 +37,10 @@ class _DataFormState extends State<DataForm> with TickerProviderStateMixin {
           controller: _tabController,
           tabs: const [
             Tab(icon: Icon(Icons.people)),
-            Tab(icon: Icon(Icons.event)),
-            Tab(icon: Icon(Icons.library_add)),
-            Tab(icon: Icon(Icons.library_add)),
             Tab(icon: Icon(Icons.man)),
+            Tab(icon: Icon(Icons.event)),
+            Tab(icon: Icon(CupertinoIcons.table)),
+            Tab(icon: Icon(Icons.sticky_note_2)),
           ],
         ),
         Expanded(
@@ -45,10 +48,10 @@ class _DataFormState extends State<DataForm> with TickerProviderStateMixin {
             controller: _tabController,
             children: const [
               StudentForm(),
-              EventForm(),
-              Center(child: Text('some text')),
-              Center(child: Text('some text')),
               TeacherForm(),
+              EventForm(),
+              ProjectForm(),
+              DepartmentForm(),
             ],
           ),
         ),

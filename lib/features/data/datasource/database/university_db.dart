@@ -16,8 +16,8 @@ part 'university_db.g.dart';
     Events,
     Students,
     Projects,
-    Department,
-    DepartmentTeacherLink,
+    Departments,
+    DepartmentTeacherLinks,
   ],
 )
 class UniversityDatabase extends _$UniversityDatabase {
@@ -29,6 +29,8 @@ class UniversityDatabase extends _$UniversityDatabase {
   Future<List<Teacher>> get teachersList => select(teachers).get();
   Future<List<Student>> get studentsList => select(students).get();
   Future<List<Event>> get eventsList => select(events).get();
+  Future<List<Project>> get projectsList => select(projects).get();
+  Future<List<Department>> get departmentsList => select(departments).get();
 
   Future<void> deleteEverything() {
     return transaction(() async {
@@ -48,6 +50,14 @@ class UniversityDatabase extends _$UniversityDatabase {
 
   Future<int> deleteEvent(int id) async {
     return (delete(events)..where((e) => e.id.equals(id))).go();
+  }
+
+  Future<int> deleteProject(int id) async {
+    return (delete(projects)..where((p) => p.id.equals(id))).go();
+  }
+
+  Future<int> deleteDepartment(int id) async {
+    return (delete(departments)..where((d) => d.id.equals(id))).go();
   }
 }
 
