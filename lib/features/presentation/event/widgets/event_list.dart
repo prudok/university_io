@@ -1,35 +1,34 @@
 import 'package:education_portal/features/data/datasource/databases/university_db.dart';
-import 'package:education_portal/features/presentation/teacher/bloc/teacher_bloc.dart';
+import 'package:education_portal/features/presentation/event/bloc/event_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class TeacherList extends StatelessWidget {
-  const TeacherList({required this.teachers, super.key});
+class EventList extends StatelessWidget {
+  const EventList({required this.events, super.key});
 
-  final List<Teacher> teachers;
+  final List<Event> events;
 
   @override
   Widget build(BuildContext context) {
-    final teacherBloc = BlocProvider.of<TeacherBloc>(context);
+    final eventBloc = BlocProvider.of<EventBloc>(context);
 
     return SliverList.separated(
-      itemCount: teachers.length,
+      itemCount: events.length,
       itemBuilder: (_, index) {
-        final teacher = teachers[index];
+        final event = events[index];
 
         return ListTile(
-          leading: const Icon(Icons.emoji_people, size: 35),
-          title: Text(teacher.firstName),
+          leading: const Icon(Icons.event, size: 35),
+          title: Text(event.title),
           subtitle: Row(
             children: [
-              Text('${teacher.lastName}, '),
-              if (teacher.gender != null) Text(teacher.gender!),
+              Text(event.description),
             ],
           ),
           trailing: Wrap(
             children: [
               IconButton(
-                onPressed: () => teacherBloc.add(TeacherRemove(id: teacher.id)),
+                onPressed: () => eventBloc.add(EventRemove(id: event.id)),
                 icon: const Icon(Icons.remove, size: 15),
               ),
             ],

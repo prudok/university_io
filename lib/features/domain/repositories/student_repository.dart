@@ -1,4 +1,4 @@
-import 'package:education_portal/features/data/datasource/databases/databases.dart';
+import 'package:education_portal/features/data/datasource/databases/university_db.dart';
 
 abstract class StudentRepository {
   Future<void> add(StudentsCompanion student);

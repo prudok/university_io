@@ -1,4 +1,5 @@
 import 'package:education_portal/common/foundations/spacing_foundation.dart';
+import 'package:education_portal/features/presentation/event/widgets/event_form.dart';
 import 'package:education_portal/features/presentation/student/widgets/student_form.dart';
 import 'package:education_portal/features/presentation/teacher/widgets/teacher_form.dart';
 import 'package:flutter/material.dart';
@@ -33,7 +34,7 @@ class _DataFormState extends State<DataForm> with TickerProviderStateMixin {
           controller: _tabController,
           tabs: const [
             Tab(icon: Icon(Icons.people)),
-            Tab(icon: Icon(Icons.library_add)),
+            Tab(icon: Icon(Icons.event)),
             Tab(icon: Icon(Icons.library_add)),
             Tab(icon: Icon(Icons.library_add)),
             Tab(icon: Icon(Icons.man)),
@@ -44,7 +45,7 @@ class _DataFormState extends State<DataForm> with TickerProviderStateMixin {
             controller: _tabController,
             children: const [
               StudentForm(),
-              Center(child: Text('some text')),
+              EventForm(),
               Center(child: Text('some text')),
               Center(child: Text('some text')),
               TeacherForm(),

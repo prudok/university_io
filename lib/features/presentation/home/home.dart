@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:education_portal/features/presentation/event/event_view.dart';
 import 'package:education_portal/features/presentation/home/widgets/data_form.dart';
 import 'package:education_portal/features/presentation/student/student_view.dart';
 import 'package:education_portal/features/presentation/teacher/teacher_view.dart';
@@ -62,8 +63,8 @@ class _HomeViewState extends State<HomeView> {
                 label: Text('Students'),
               ),
               NavigationRailDestination(
-                icon: Icon(Icons.book),
-                label: Text('Library'),
+                icon: Icon(Icons.event),
+                label: Text('Events'),
               ),
               NavigationRailDestination(
                 icon: Icon(Icons.play_lesson),
@@ -86,7 +87,7 @@ class _HomeViewState extends State<HomeView> {
               scrollDirection: Axis.vertical,
               children: const [
                 StudentView(),
-                Center(child: Text('Library')),
+                EventView(),
                 Center(child: Text('Lessons')),
                 Center(child: Text('Buildings')),
                 TeacherView(),

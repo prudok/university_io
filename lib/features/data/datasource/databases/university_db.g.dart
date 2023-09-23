@@ -288,6 +288,213 @@ class TeachersCompanion extends UpdateCompanion<Teacher> {
   }
 }
 
+class $EventsTable extends Events with TableInfo<$EventsTable, Event> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $EventsTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+      'id', aliasedName, false,
+      hasAutoIncrement: true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _titleMeta = const VerificationMeta('title');
+  @override
+  late final GeneratedColumn<String> title = GeneratedColumn<String>(
+      'title', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _descriptionMeta =
+      const VerificationMeta('description');
+  @override
+  late final GeneratedColumn<String> description = GeneratedColumn<String>(
+      'description', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  @override
+  List<GeneratedColumn> get $columns => [id, title, description];
+  @override
+  String get aliasedName => _alias ?? 'events';
+  @override
+  String get actualTableName => 'events';
+  @override
+  VerificationContext validateIntegrity(Insertable<Event> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('title')) {
+      context.handle(
+          _titleMeta, title.isAcceptableOrUnknown(data['title']!, _titleMeta));
+    } else if (isInserting) {
+      context.missing(_titleMeta);
+    }
+    if (data.containsKey('description')) {
+      context.handle(
+          _descriptionMeta,
+          description.isAcceptableOrUnknown(
+              data['description']!, _descriptionMeta));
+    } else if (isInserting) {
+      context.missing(_descriptionMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  Event map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return Event(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      title: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}title'])!,
+      description: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}description'])!,
+    );
+  }
+
+  @override
+  $EventsTable createAlias(String alias) {
+    return $EventsTable(attachedDatabase, alias);
+  }
+}
+
+class Event extends DataClass implements Insertable<Event> {
+  final int id;
+  final String title;
+  final String description;
+  const Event(
+      {required this.id, required this.title, required this.description});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['title'] = Variable<String>(title);
+    map['description'] = Variable<String>(description);
+    return map;
+  }
+
+  EventsCompanion toCompanion(bool nullToAbsent) {
+    return EventsCompanion(
+      id: Value(id),
+      title: Value(title),
+      description: Value(description),
+    );
+  }
+
+  factory Event.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return Event(
+      id: serializer.fromJson<int>(json['id']),
+      title: serializer.fromJson<String>(json['title']),
+      description: serializer.fromJson<String>(json['description']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'title': serializer.toJson<String>(title),
+      'description': serializer.toJson<String>(description),
+    };
+  }
+
+  Event copyWith({int? id, String? title, String? description}) => Event(
+        id: id ?? this.id,
+        title: title ?? this.title,
+        description: description ?? this.description,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('Event(')
+          ..write('id: $id, ')
+          ..write('title: $title, ')
+          ..write('description: $description')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(id, title, description);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is Event &&
+          other.id == this.id &&
+          other.title == this.title &&
+          other.description == this.description);
+}
+
+class EventsCompanion extends UpdateCompanion<Event> {
+  final Value<int> id;
+  final Value<String> title;
+  final Value<String> description;
+  const EventsCompanion({
+    this.id = const Value.absent(),
+    this.title = const Value.absent(),
+    this.description = const Value.absent(),
+  });
+  EventsCompanion.insert({
+    this.id = const Value.absent(),
+    required String title,
+    required String description,
+  })  : title = Value(title),
+        description = Value(description);
+  static Insertable<Event> custom({
+    Expression<int>? id,
+    Expression<String>? title,
+    Expression<String>? description,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (title != null) 'title': title,
+      if (description != null) 'description': description,
+    });
+  }
+
+  EventsCompanion copyWith(
+      {Value<int>? id, Value<String>? title, Value<String>? description}) {
+    return EventsCompanion(
+      id: id ?? this.id,
+      title: title ?? this.title,
+      description: description ?? this.description,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (title.present) {
+      map['title'] = Variable<String>(title.value);
+    }
+    if (description.present) {
+      map['description'] = Variable<String>(description.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('EventsCompanion(')
+          ..write('id: $id, ')
+          ..write('title: $title, ')
+          ..write('description: $description')
+          ..write(')'))
+        .toString();
+  }
+}
+
 class $StudentsTable extends Students with TableInfo<$StudentsTable, Student> {
   @override
   final GeneratedDatabase attachedDatabase;
@@ -319,39 +526,14 @@ class $StudentsTable extends Students with TableInfo<$StudentsTable, Student> {
   late final GeneratedColumn<String> email = GeneratedColumn<String>(
       'email', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _phoneNumberMeta =
-      const VerificationMeta('phoneNumber');
-  @override
-  late final GeneratedColumn<String> phoneNumber = GeneratedColumn<String>(
-      'phone_number', aliasedName, true,
-      type: DriftSqlType.string, requiredDuringInsert: false);
-  static const VerificationMeta _dateOfBirthMeta =
-      const VerificationMeta('dateOfBirth');
-  @override
-  late final GeneratedColumn<String> dateOfBirth = GeneratedColumn<String>(
-      'date_of_birth', aliasedName, true,
-      type: DriftSqlType.string, requiredDuringInsert: false);
-  static const VerificationMeta _adressMeta = const VerificationMeta('adress');
-  @override
-  late final GeneratedColumn<String> adress = GeneratedColumn<String>(
-      'adress', aliasedName, true,
-      type: DriftSqlType.string, requiredDuringInsert: false);
   static const VerificationMeta _genderMeta = const VerificationMeta('gender');
   @override
   late final GeneratedColumn<String> gender = GeneratedColumn<String>(
       'gender', aliasedName, true,
       type: DriftSqlType.string, requiredDuringInsert: false);
   @override
-  List<GeneratedColumn> get $columns => [
-        id,
-        firstName,
-        lastName,
-        email,
-        phoneNumber,
-        dateOfBirth,
-        adress,
-        gender
-      ];
+  List<GeneratedColumn> get $columns =>
+      [id, firstName, lastName, email, gender];
   @override
   String get aliasedName => _alias ?? 'students';
   @override
@@ -382,22 +564,6 @@ class $StudentsTable extends Students with TableInfo<$StudentsTable, Student> {
     } else if (isInserting) {
       context.missing(_emailMeta);
     }
-    if (data.containsKey('phone_number')) {
-      context.handle(
-          _phoneNumberMeta,
-          phoneNumber.isAcceptableOrUnknown(
-              data['phone_number']!, _phoneNumberMeta));
-    }
-    if (data.containsKey('date_of_birth')) {
-      context.handle(
-          _dateOfBirthMeta,
-          dateOfBirth.isAcceptableOrUnknown(
-              data['date_of_birth']!, _dateOfBirthMeta));
-    }
-    if (data.containsKey('adress')) {
-      context.handle(_adressMeta,
-          adress.isAcceptableOrUnknown(data['adress']!, _adressMeta));
-    }
     if (data.containsKey('gender')) {
       context.handle(_genderMeta,
           gender.isAcceptableOrUnknown(data['gender']!, _genderMeta));
@@ -419,12 +585,6 @@ class $StudentsTable extends Students with TableInfo<$StudentsTable, Student> {
           .read(DriftSqlType.string, data['${effectivePrefix}last_name'])!,
       email: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}email'])!,
-      phoneNumber: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}phone_number']),
-      dateOfBirth: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}date_of_birth']),
-      adress: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}adress']),
       gender: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}gender']),
     );
@@ -441,18 +601,12 @@ class Student extends DataClass implements Insertable<Student> {
   final String firstName;
   final String lastName;
   final String email;
-  final String? phoneNumber;
-  final String? dateOfBirth;
-  final String? adress;
   final String? gender;
   const Student(
       {required this.id,
       required this.firstName,
       required this.lastName,
       required this.email,
-      this.phoneNumber,
-      this.dateOfBirth,
-      this.adress,
       this.gender});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
@@ -461,15 +615,6 @@ class Student extends DataClass implements Insertable<Student> {
     map['first_name'] = Variable<String>(firstName);
     map['last_name'] = Variable<String>(lastName);
     map['email'] = Variable<String>(email);
-    if (!nullToAbsent || phoneNumber != null) {
-      map['phone_number'] = Variable<String>(phoneNumber);
-    }
-    if (!nullToAbsent || dateOfBirth != null) {
-      map['date_of_birth'] = Variable<String>(dateOfBirth);
-    }
-    if (!nullToAbsent || adress != null) {
-      map['adress'] = Variable<String>(adress);
-    }
     if (!nullToAbsent || gender != null) {
       map['gender'] = Variable<String>(gender);
     }
@@ -482,14 +627,6 @@ class Student extends DataClass implements Insertable<Student> {
       firstName: Value(firstName),
       lastName: Value(lastName),
       email: Value(email),
-      phoneNumber: phoneNumber == null && nullToAbsent
-          ? const Value.absent()
-          : Value(phoneNumber),
-      dateOfBirth: dateOfBirth == null && nullToAbsent
-          ? const Value.absent()
-          : Value(dateOfBirth),
-      adress:
-          adress == null && nullToAbsent ? const Value.absent() : Value(adress),
       gender:
           gender == null && nullToAbsent ? const Value.absent() : Value(gender),
     );
@@ -503,9 +640,6 @@ class Student extends DataClass implements Insertable<Student> {
       firstName: serializer.fromJson<String>(json['firstName']),
       lastName: serializer.fromJson<String>(json['lastName']),
       email: serializer.fromJson<String>(json['email']),
-      phoneNumber: serializer.fromJson<String?>(json['phoneNumber']),
-      dateOfBirth: serializer.fromJson<String?>(json['dateOfBirth']),
-      adress: serializer.fromJson<String?>(json['adress']),
       gender: serializer.fromJson<String?>(json['gender']),
     );
   }
@@ -517,9 +651,6 @@ class Student extends DataClass implements Insertable<Student> {
       'firstName': serializer.toJson<String>(firstName),
       'lastName': serializer.toJson<String>(lastName),
       'email': serializer.toJson<String>(email),
-      'phoneNumber': serializer.toJson<String?>(phoneNumber),
-      'dateOfBirth': serializer.toJson<String?>(dateOfBirth),
-      'adress': serializer.toJson<String?>(adress),
       'gender': serializer.toJson<String?>(gender),
     };
   }
@@ -529,18 +660,12 @@ class Student extends DataClass implements Insertable<Student> {
           String? firstName,
           String? lastName,
           String? email,
-          Value<String?> phoneNumber = const Value.absent(),
-          Value<String?> dateOfBirth = const Value.absent(),
-          Value<String?> adress = const Value.absent(),
           Value<String?> gender = const Value.absent()}) =>
       Student(
         id: id ?? this.id,
         firstName: firstName ?? this.firstName,
         lastName: lastName ?? this.lastName,
         email: email ?? this.email,
-        phoneNumber: phoneNumber.present ? phoneNumber.value : this.phoneNumber,
-        dateOfBirth: dateOfBirth.present ? dateOfBirth.value : this.dateOfBirth,
-        adress: adress.present ? adress.value : this.adress,
         gender: gender.present ? gender.value : this.gender,
       );
   @override
@@ -550,17 +675,13 @@ class Student extends DataClass implements Insertable<Student> {
           ..write('firstName: $firstName, ')
           ..write('lastName: $lastName, ')
           ..write('email: $email, ')
-          ..write('phoneNumber: $phoneNumber, ')
-          ..write('dateOfBirth: $dateOfBirth, ')
-          ..write('adress: $adress, ')
           ..write('gender: $gender')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(
-      id, firstName, lastName, email, phoneNumber, dateOfBirth, adress, gender);
+  int get hashCode => Object.hash(id, firstName, lastName, email, gender);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -569,9 +690,6 @@ class Student extends DataClass implements Insertable<Student> {
           other.firstName == this.firstName &&
           other.lastName == this.lastName &&
           other.email == this.email &&
-          other.phoneNumber == this.phoneNumber &&
-          other.dateOfBirth == this.dateOfBirth &&
-          other.adress == this.adress &&
           other.gender == this.gender);
 }
 
@@ -580,18 +698,12 @@ class StudentsCompanion extends UpdateCompanion<Student> {
   final Value<String> firstName;
   final Value<String> lastName;
   final Value<String> email;
-  final Value<String?> phoneNumber;
-  final Value<String?> dateOfBirth;
-  final Value<String?> adress;
   final Value<String?> gender;
   const StudentsCompanion({
     this.id = const Value.absent(),
     this.firstName = const Value.absent(),
     this.lastName = const Value.absent(),
     this.email = const Value.absent(),
-    this.phoneNumber = const Value.absent(),
-    this.dateOfBirth = const Value.absent(),
-    this.adress = const Value.absent(),
     this.gender = const Value.absent(),
   });
   StudentsCompanion.insert({
@@ -599,9 +711,6 @@ class StudentsCompanion extends UpdateCompanion<Student> {
     required String firstName,
     required String lastName,
     required String email,
-    this.phoneNumber = const Value.absent(),
-    this.dateOfBirth = const Value.absent(),
-    this.adress = const Value.absent(),
     this.gender = const Value.absent(),
   })  : firstName = Value(firstName),
         lastName = Value(lastName),
@@ -611,9 +720,6 @@ class StudentsCompanion extends UpdateCompanion<Student> {
     Expression<String>? firstName,
     Expression<String>? lastName,
     Expression<String>? email,
-    Expression<String>? phoneNumber,
-    Expression<String>? dateOfBirth,
-    Expression<String>? adress,
     Expression<String>? gender,
   }) {
     return RawValuesInsertable({
@@ -621,9 +727,6 @@ class StudentsCompanion extends UpdateCompanion<Student> {
       if (firstName != null) 'first_name': firstName,
       if (lastName != null) 'last_name': lastName,
       if (email != null) 'email': email,
-      if (phoneNumber != null) 'phone_number': phoneNumber,
-      if (dateOfBirth != null) 'date_of_birth': dateOfBirth,
-      if (adress != null) 'adress': adress,
       if (gender != null) 'gender': gender,
     });
   }
@@ -633,18 +736,12 @@ class StudentsCompanion extends UpdateCompanion<Student> {
       Value<String>? firstName,
       Value<String>? lastName,
       Value<String>? email,
-      Value<String?>? phoneNumber,
-      Value<String?>? dateOfBirth,
-      Value<String?>? adress,
       Value<String?>? gender}) {
     return StudentsCompanion(
       id: id ?? this.id,
       firstName: firstName ?? this.firstName,
       lastName: lastName ?? this.lastName,
       email: email ?? this.email,
-      phoneNumber: phoneNumber ?? this.phoneNumber,
-      dateOfBirth: dateOfBirth ?? this.dateOfBirth,
-      adress: adress ?? this.adress,
       gender: gender ?? this.gender,
     );
   }
@@ -664,15 +761,6 @@ class StudentsCompanion extends UpdateCompanion<Student> {
     if (email.present) {
       map['email'] = Variable<String>(email.value);
     }
-    if (phoneNumber.present) {
-      map['phone_number'] = Variable<String>(phoneNumber.value);
-    }
-    if (dateOfBirth.present) {
-      map['date_of_birth'] = Variable<String>(dateOfBirth.value);
-    }
-    if (adress.present) {
-      map['adress'] = Variable<String>(adress.value);
-    }
     if (gender.present) {
       map['gender'] = Variable<String>(gender.value);
     }
@@ -686,9 +774,6 @@ class StudentsCompanion extends UpdateCompanion<Student> {
           ..write('firstName: $firstName, ')
           ..write('lastName: $lastName, ')
           ..write('email: $email, ')
-          ..write('phoneNumber: $phoneNumber, ')
-          ..write('dateOfBirth: $dateOfBirth, ')
-          ..write('adress: $adress, ')
           ..write('gender: $gender')
           ..write(')'))
         .toString();
@@ -1061,6 +1146,7 @@ class DepartmentTeacherLinkCompanion
 abstract class _$UniversityDatabase extends GeneratedDatabase {
   _$UniversityDatabase(QueryExecutor e) : super(e);
   late final $TeachersTable teachers = $TeachersTable(this);
+  late final $EventsTable events = $EventsTable(this);
   late final $StudentsTable students = $StudentsTable(this);
   late final $DepartmentTable department = $DepartmentTable(this);
   late final $DepartmentTeacherLinkTable departmentTeacherLink =
@@ -1070,5 +1156,5 @@ abstract class _$UniversityDatabase extends GeneratedDatabase {
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
   @override
   List<DatabaseSchemaEntity> get allSchemaEntities =>
-      [teachers, students, department, departmentTeacherLink];
+      [teachers, events, students, department, departmentTeacherLink];
 }
