@@ -13,7 +13,7 @@ class TeacherBloc extends Bloc<TeacherEvent, TeacherState> {
     on<TeacherEvent>((event, emit) async {
       switch (event) {
         case TeacherAdd():
-          await _addTeacher(event.teacher, emit);
+          await _addTeacher(event.teacher, event.department, emit);
         case TeacherRemove():
           await _removeTeacher(event.id, emit);
         case TeacherLoad():
@@ -24,10 +24,14 @@ class TeacherBloc extends Bloc<TeacherEvent, TeacherState> {
 
   final TeacherRepositoryImpl teacherRepositoryImpl;
 
-  Future<void> _addTeacher(TeachersCompanion teacher, Emitter<TeacherState> emit) async {
+  Future<void> _addTeacher(
+    TeachersCompanion teacher,
+    DepartmentTeacherLinksCompanion department,
+    Emitter<TeacherState> emit,
+  ) async {
     try {
       emit(TeacherLoading());
-      await teacherRepositoryImpl.add(teacher);
+      await teacherRepositoryImpl.add(teacher, department);
       await _updateTeachers(emit);
     } on Object catch (error) {
       emit(TeacherFailed(errorMessage: error.toString()));

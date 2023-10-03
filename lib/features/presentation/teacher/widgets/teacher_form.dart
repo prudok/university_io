@@ -20,7 +20,8 @@ class _TeacherFormState extends State<TeacherForm> {
   late final TextEditingController _nameController;
   late final TextEditingController _surnameController;
   late final TextEditingController _emailController;
-  late final TeacherBloc teacherBloc;
+  late final TeacherBloc _teacherBloc;
+  int _departmentId = 1;
   int _gender = 0;
 
   String _getGenderValue() {
@@ -37,7 +38,7 @@ class _TeacherFormState extends State<TeacherForm> {
   @override
   void initState() {
     super.initState();
-    teacherBloc = BlocProvider.of<TeacherBloc>(context);
+    _teacherBloc = BlocProvider.of<TeacherBloc>(context);
     _nameController = TextEditingController();
     _surnameController = TextEditingController();
     _emailController = TextEditingController();
@@ -99,6 +100,17 @@ class _TeacherFormState extends State<TeacherForm> {
                 ),
               ],
             ),
+            SpacingFoundation.verticalSpaceSmall,
+            DropdownMenu(
+              onSelected: (value) => setState(() => _departmentId = value!),
+              dropdownMenuEntries: const [
+                DropdownMenuEntry(value: 1, label: '1'),
+                DropdownMenuEntry(value: 2, label: '2'),
+                DropdownMenuEntry(value: 3, label: '3'),
+                DropdownMenuEntry(value: 4, label: '4'),
+                DropdownMenuEntry(value: 5, label: '5'),
+              ],
+            ),
             SpacingFoundation.verticalSpaceMedium,
             SizedBox(
               width: 300,
@@ -109,13 +121,17 @@ class _TeacherFormState extends State<TeacherForm> {
                       Navigator.of(context).pop();
                     }
 
-                    teacherBloc.add(
+                    _teacherBloc.add(
                       TeacherAdd(
                         teacher: TeachersCompanion(
                           firstName: Value(_nameController.text),
                           lastName: Value(_surnameController.text),
                           email: Value(_emailController.text),
                           gender: Value(_getGenderValue()),
+                        ),
+                        department: const DepartmentTeacherLinksCompanion(
+                          teacherId: Value(1),
+                          departmentId: Value(1),
                         ),
                       ),
                     );

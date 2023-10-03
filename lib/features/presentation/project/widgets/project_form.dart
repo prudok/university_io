@@ -17,12 +17,12 @@ class _ProjectFormState extends State<ProjectForm> {
   final _formKey = GlobalKey<FormState>();
   late final TextEditingController _titleController;
   late final TextEditingController _descriptionController;
-  late final ProjectBloc projectBloc;
+  late final ProjectBloc _projectBloc;
 
   @override
   void initState() {
     super.initState();
-    projectBloc = BlocProvider.of<ProjectBloc>(context);
+    _projectBloc = BlocProvider.of<ProjectBloc>(context);
     _titleController = TextEditingController();
     _descriptionController = TextEditingController();
   }
@@ -65,7 +65,7 @@ class _ProjectFormState extends State<ProjectForm> {
                     if (Navigator.of(context).canPop()) {
                       Navigator.of(context).pop();
                     }
-                    projectBloc.add(
+                    _projectBloc.add(
                       ProjectAdd(
                         project: ProjectsCompanion(
                           title: Value(_titleController.text),

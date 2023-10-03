@@ -5,5 +5,5 @@ class Teachers extends Table {
   TextColumn get firstName => text()();
   TextColumn get lastName => text()();
   TextColumn get email => text()();
-  TextColumn get gender => text().nullable()();
+  TextColumn get gender => text()();
 }

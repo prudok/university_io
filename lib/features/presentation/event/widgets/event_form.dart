@@ -20,12 +20,12 @@ class _EventFormState extends State<EventForm> {
   late final TextEditingController _titleController;
   late final TextEditingController _descriptionController;
   late final TextEditingController _emailController;
-  late final EventBloc eventBloc;
+  late final EventBloc _eventBloc;
 
   @override
   void initState() {
     super.initState();
-    eventBloc = BlocProvider.of<EventBloc>(context);
+    _eventBloc = BlocProvider.of<EventBloc>(context);
     _titleController = TextEditingController();
     _descriptionController = TextEditingController();
     _emailController = TextEditingController();
@@ -73,7 +73,7 @@ class _EventFormState extends State<EventForm> {
                       Navigator.of(context).pop();
                     }
 
-                    eventBloc.add(
+                    _eventBloc.add(
                       EventAdd(
                         event: EventsCompanion(
                           title: Value(_titleController.text),

@@ -20,12 +20,12 @@ class _StudentFormState extends State<StudentForm> {
   late final TextEditingController _nameController;
   late final TextEditingController _surnameController;
   late final TextEditingController _emailController;
-  late final StudentBloc studentBloc;
+  late final StudentBloc _studentBloc;
 
   @override
   void initState() {
     super.initState();
-    studentBloc = BlocProvider.of<StudentBloc>(context);
+    _studentBloc = BlocProvider.of<StudentBloc>(context);
     _nameController = TextEditingController();
     _surnameController = TextEditingController();
     _emailController = TextEditingController();
@@ -78,7 +78,7 @@ class _StudentFormState extends State<StudentForm> {
                       Navigator.of(context).pop();
                     }
 
-                    studentBloc.add(
+                    _studentBloc.add(
                       StudentAdd(
                         student: StudentsCompanion(
                           firstName: Value(_nameController.text),

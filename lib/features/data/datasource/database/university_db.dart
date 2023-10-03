@@ -26,12 +26,6 @@ class UniversityDatabase extends _$UniversityDatabase {
   @override
   int get schemaVersion => 1;
 
-  Future<List<Teacher>> get teachersList => select(teachers).get();
-  Future<List<Student>> get studentsList => select(students).get();
-  Future<List<Event>> get eventsList => select(events).get();
-  Future<List<Project>> get projectsList => select(projects).get();
-  Future<List<Department>> get departmentsList => select(departments).get();
-
   Future<void> deleteEverything() {
     return transaction(() async {
       for (final table in allTables) {
@@ -40,6 +34,14 @@ class UniversityDatabase extends _$UniversityDatabase {
     });
   }
 
+  // GET queries
+  Future<List<Teacher>> get teachersList => select(teachers).get();
+  Future<List<Student>> get studentsList => select(students).get();
+  Future<List<Event>> get eventsList => select(events).get();
+  Future<List<Project>> get projectsList => select(projects).get();
+  Future<List<Department>> get departmentsList => select(departments).get();
+
+  // DELETE queries
   Future<int> deleteTeacher(int id) async {
     return (delete(teachers)..where((t) => t.id.equals(id))).go();
   }

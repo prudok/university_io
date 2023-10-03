@@ -17,12 +17,12 @@ class DepartmentForm extends StatefulWidget {
 class _DepartmentFormState extends State<DepartmentForm> {
   final _formKey = GlobalKey<FormState>();
   late final TextEditingController _nameController;
-  late final DepartmentBloc departmentBloc;
+  late final DepartmentBloc _departmentBloc;
 
   @override
   void initState() {
     super.initState();
-    departmentBloc = BlocProvider.of<DepartmentBloc>(context);
+    _departmentBloc = BlocProvider.of<DepartmentBloc>(context);
     _nameController = TextEditingController();
   }
 
@@ -59,7 +59,7 @@ class _DepartmentFormState extends State<DepartmentForm> {
                     if (Navigator.of(context).canPop()) {
                       Navigator.of(context).pop();
                     }
-                    departmentBloc.add(
+                    _departmentBloc.add(
                       DepartmentAdd(
                         department: DepartmentsCompanion(name: Value(_nameController.text)),
                       ),

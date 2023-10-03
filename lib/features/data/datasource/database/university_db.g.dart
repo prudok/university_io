@@ -37,8 +37,8 @@ class $TeachersTable extends Teachers with TableInfo<$TeachersTable, Teacher> {
   static const VerificationMeta _genderMeta = const VerificationMeta('gender');
   @override
   late final GeneratedColumn<String> gender = GeneratedColumn<String>(
-      'gender', aliasedName, true,
-      type: DriftSqlType.string, requiredDuringInsert: false);
+      'gender', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
   @override
   List<GeneratedColumn> get $columns =>
       [id, firstName, lastName, email, gender];
@@ -75,6 +75,8 @@ class $TeachersTable extends Teachers with TableInfo<$TeachersTable, Teacher> {
     if (data.containsKey('gender')) {
       context.handle(_genderMeta,
           gender.isAcceptableOrUnknown(data['gender']!, _genderMeta));
+    } else if (isInserting) {
+      context.missing(_genderMeta);
     }
     return context;
   }
@@ -94,7 +96,7 @@ class $TeachersTable extends Teachers with TableInfo<$TeachersTable, Teacher> {
       email: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}email'])!,
       gender: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}gender']),
+          .read(DriftSqlType.string, data['${effectivePrefix}gender'])!,
     );
   }
 
@@ -109,13 +111,13 @@ class Teacher extends DataClass implements Insertable<Teacher> {
   final String firstName;
   final String lastName;
   final String email;
-  final String? gender;
+  final String gender;
   const Teacher(
       {required this.id,
       required this.firstName,
       required this.lastName,
       required this.email,
-      this.gender});
+      required this.gender});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -123,9 +125,7 @@ class Teacher extends DataClass implements Insertable<Teacher> {
     map['first_name'] = Variable<String>(firstName);
     map['last_name'] = Variable<String>(lastName);
     map['email'] = Variable<String>(email);
-    if (!nullToAbsent || gender != null) {
-      map['gender'] = Variable<String>(gender);
-    }
+    map['gender'] = Variable<String>(gender);
     return map;
   }
 
@@ -135,8 +135,7 @@ class Teacher extends DataClass implements Insertable<Teacher> {
       firstName: Value(firstName),
       lastName: Value(lastName),
       email: Value(email),
-      gender:
-          gender == null && nullToAbsent ? const Value.absent() : Value(gender),
+      gender: Value(gender),
     );
   }
 
@@ -148,7 +147,7 @@ class Teacher extends DataClass implements Insertable<Teacher> {
       firstName: serializer.fromJson<String>(json['firstName']),
       lastName: serializer.fromJson<String>(json['lastName']),
       email: serializer.fromJson<String>(json['email']),
-      gender: serializer.fromJson<String?>(json['gender']),
+      gender: serializer.fromJson<String>(json['gender']),
     );
   }
   @override
@@ -159,7 +158,7 @@ class Teacher extends DataClass implements Insertable<Teacher> {
       'firstName': serializer.toJson<String>(firstName),
       'lastName': serializer.toJson<String>(lastName),
       'email': serializer.toJson<String>(email),
-      'gender': serializer.toJson<String?>(gender),
+      'gender': serializer.toJson<String>(gender),
     };
   }
 
@@ -168,13 +167,13 @@ class Teacher extends DataClass implements Insertable<Teacher> {
           String? firstName,
           String? lastName,
           String? email,
-          Value<String?> gender = const Value.absent()}) =>
+          String? gender}) =>
       Teacher(
         id: id ?? this.id,
         firstName: firstName ?? this.firstName,
         lastName: lastName ?? this.lastName,
         email: email ?? this.email,
-        gender: gender.present ? gender.value : this.gender,
+        gender: gender ?? this.gender,
       );
   @override
   String toString() {
@@ -206,7 +205,7 @@ class TeachersCompanion extends UpdateCompanion<Teacher> {
   final Value<String> firstName;
   final Value<String> lastName;
   final Value<String> email;
-  final Value<String?> gender;
+  final Value<String> gender;
   const TeachersCompanion({
     this.id = const Value.absent(),
     this.firstName = const Value.absent(),
@@ -219,10 +218,11 @@ class TeachersCompanion extends UpdateCompanion<Teacher> {
     required String firstName,
     required String lastName,
     required String email,
-    this.gender = const Value.absent(),
+    required String gender,
   })  : firstName = Value(firstName),
         lastName = Value(lastName),
-        email = Value(email);
+        email = Value(email),
+        gender = Value(gender);
   static Insertable<Teacher> custom({
     Expression<int>? id,
     Expression<String>? firstName,
@@ -244,7 +244,7 @@ class TeachersCompanion extends UpdateCompanion<Teacher> {
       Value<String>? firstName,
       Value<String>? lastName,
       Value<String>? email,
-      Value<String?>? gender}) {
+      Value<String>? gender}) {
     return TeachersCompanion(
       id: id ?? this.id,
       firstName: firstName ?? this.firstName,
@@ -1162,20 +1162,35 @@ class $DepartmentTeacherLinksTable extends DepartmentTeacherLinks
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
   $DepartmentTeacherLinksTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+      'id', aliasedName, false,
+      hasAutoIncrement: true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
   static const VerificationMeta _departmentIdMeta =
       const VerificationMeta('departmentId');
   @override
   late final GeneratedColumn<int> departmentId = GeneratedColumn<int>(
       'department_id', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('REFERENCES departments (id)'));
   static const VerificationMeta _teacherIdMeta =
       const VerificationMeta('teacherId');
   @override
   late final GeneratedColumn<int> teacherId = GeneratedColumn<int>(
       'teacher_id', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('REFERENCES teachers (id)'));
   @override
-  List<GeneratedColumn> get $columns => [departmentId, teacherId];
+  List<GeneratedColumn> get $columns => [id, departmentId, teacherId];
   @override
   String get aliasedName => _alias ?? 'department_teacher_links';
   @override
@@ -1186,6 +1201,9 @@ class $DepartmentTeacherLinksTable extends DepartmentTeacherLinks
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
     if (data.containsKey('department_id')) {
       context.handle(
           _departmentIdMeta,
@@ -1204,11 +1222,13 @@ class $DepartmentTeacherLinksTable extends DepartmentTeacherLinks
   }
 
   @override
-  Set<GeneratedColumn> get $primaryKey => const {};
+  Set<GeneratedColumn> get $primaryKey => {id};
   @override
   DepartmentTeacherLink map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return DepartmentTeacherLink(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
       departmentId: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}department_id'])!,
       teacherId: attachedDatabase.typeMapping
@@ -1224,13 +1244,15 @@ class $DepartmentTeacherLinksTable extends DepartmentTeacherLinks
 
 class DepartmentTeacherLink extends DataClass
     implements Insertable<DepartmentTeacherLink> {
+  final int id;
   final int departmentId;
   final int teacherId;
   const DepartmentTeacherLink(
-      {required this.departmentId, required this.teacherId});
+      {required this.id, required this.departmentId, required this.teacherId});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
     map['department_id'] = Variable<int>(departmentId);
     map['teacher_id'] = Variable<int>(teacherId);
     return map;
@@ -1238,6 +1260,7 @@ class DepartmentTeacherLink extends DataClass
 
   DepartmentTeacherLinksCompanion toCompanion(bool nullToAbsent) {
     return DepartmentTeacherLinksCompanion(
+      id: Value(id),
       departmentId: Value(departmentId),
       teacherId: Value(teacherId),
     );
@@ -1247,6 +1270,7 @@ class DepartmentTeacherLink extends DataClass
       {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return DepartmentTeacherLink(
+      id: serializer.fromJson<int>(json['id']),
       departmentId: serializer.fromJson<int>(json['departmentId']),
       teacherId: serializer.fromJson<int>(json['teacherId']),
     );
@@ -1255,19 +1279,23 @@ class DepartmentTeacherLink extends DataClass
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
       'departmentId': serializer.toJson<int>(departmentId),
       'teacherId': serializer.toJson<int>(teacherId),
     };
   }
 
-  DepartmentTeacherLink copyWith({int? departmentId, int? teacherId}) =>
+  DepartmentTeacherLink copyWith(
+          {int? id, int? departmentId, int? teacherId}) =>
       DepartmentTeacherLink(
+        id: id ?? this.id,
         departmentId: departmentId ?? this.departmentId,
         teacherId: teacherId ?? this.teacherId,
       );
   @override
   String toString() {
     return (StringBuffer('DepartmentTeacherLink(')
+          ..write('id: $id, ')
           ..write('departmentId: $departmentId, ')
           ..write('teacherId: $teacherId')
           ..write(')'))
@@ -1275,63 +1303,64 @@ class DepartmentTeacherLink extends DataClass
   }
 
   @override
-  int get hashCode => Object.hash(departmentId, teacherId);
+  int get hashCode => Object.hash(id, departmentId, teacherId);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is DepartmentTeacherLink &&
+          other.id == this.id &&
           other.departmentId == this.departmentId &&
           other.teacherId == this.teacherId);
 }
 
 class DepartmentTeacherLinksCompanion
     extends UpdateCompanion<DepartmentTeacherLink> {
+  final Value<int> id;
   final Value<int> departmentId;
   final Value<int> teacherId;
-  final Value<int> rowid;
   const DepartmentTeacherLinksCompanion({
+    this.id = const Value.absent(),
     this.departmentId = const Value.absent(),
     this.teacherId = const Value.absent(),
-    this.rowid = const Value.absent(),
   });
   DepartmentTeacherLinksCompanion.insert({
+    this.id = const Value.absent(),
     required int departmentId,
     required int teacherId,
-    this.rowid = const Value.absent(),
   })  : departmentId = Value(departmentId),
         teacherId = Value(teacherId);
   static Insertable<DepartmentTeacherLink> custom({
+    Expression<int>? id,
     Expression<int>? departmentId,
     Expression<int>? teacherId,
-    Expression<int>? rowid,
   }) {
     return RawValuesInsertable({
+      if (id != null) 'id': id,
       if (departmentId != null) 'department_id': departmentId,
       if (teacherId != null) 'teacher_id': teacherId,
-      if (rowid != null) 'rowid': rowid,
     });
   }
 
   DepartmentTeacherLinksCompanion copyWith(
-      {Value<int>? departmentId, Value<int>? teacherId, Value<int>? rowid}) {
+      {Value<int>? id, Value<int>? departmentId, Value<int>? teacherId}) {
     return DepartmentTeacherLinksCompanion(
+      id: id ?? this.id,
       departmentId: departmentId ?? this.departmentId,
       teacherId: teacherId ?? this.teacherId,
-      rowid: rowid ?? this.rowid,
     );
   }
 
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
     if (departmentId.present) {
       map['department_id'] = Variable<int>(departmentId.value);
     }
     if (teacherId.present) {
       map['teacher_id'] = Variable<int>(teacherId.value);
-    }
-    if (rowid.present) {
-      map['rowid'] = Variable<int>(rowid.value);
     }
     return map;
   }
@@ -1339,9 +1368,9 @@ class DepartmentTeacherLinksCompanion
   @override
   String toString() {
     return (StringBuffer('DepartmentTeacherLinksCompanion(')
+          ..write('id: $id, ')
           ..write('departmentId: $departmentId, ')
-          ..write('teacherId: $teacherId, ')
-          ..write('rowid: $rowid')
+          ..write('teacherId: $teacherId')
           ..write(')'))
         .toString();
   }
