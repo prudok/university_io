@@ -1,7 +1,8 @@
 import 'package:drift/drift.dart';
 
-class Departments extends Table {
+@DataClassName('OVolunteering')
+class Volunteering extends Table {
   IntColumn get id => integer().autoIncrement()();
   TextColumn get name => text()();
-  IntColumn get headId => integer()();
+  TextColumn get date => text()();
 }

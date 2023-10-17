@@ -36,9 +36,13 @@ class UniversityDatabase extends _$UniversityDatabase {
 
   // GET queries
   Future<List<Teacher>> get teachersList => select(teachers).get();
+
   Future<List<Student>> get studentsList => select(students).get();
+
   Future<List<Event>> get eventsList => select(events).get();
+
   Future<List<Project>> get projectsList => select(projects).get();
+
   Future<List<Department>> get departmentsList => select(departments).get();
 
   // DELETE queries

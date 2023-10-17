@@ -23,7 +23,6 @@ class StudentList extends StatelessWidget {
           subtitle: Row(
             children: [
               Text('${student.lastName}, '),
-              if (student.gender != null) Text(student.gender!),
             ],
           ),
           trailing: Wrap(
