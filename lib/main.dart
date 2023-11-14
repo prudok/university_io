@@ -9,7 +9,7 @@ import 'package:university_io/common/initialization/widgets/app_error.dart';
 void main() => runZonedGuarded<Future<void>>(
       () async {
         try {
-          await initializaApp();
+          await initializeDependencies();
         } on Object catch (_, __) {
           runApp(const AppError());
           return;
