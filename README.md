@@ -4,6 +4,9 @@
 
 **_Backend_ часть проекта находится [здесь](https://github.com/rel1nce/university_io_backend/).**
 
+**_Библиотека_ с сущностями находится [здесь](https://github.com/rel1nce/university_io_entities/).**
+
+
 ## Функциональность
 
 - Управление профилями студентов и преподавателей
