@@ -1,6 +1,6 @@
-import 'package:education_portal/common/foundations/foundations.dart';
-import 'package:education_portal/features/data/datasource/database/university_db.dart';
 import 'package:flutter/material.dart';
+import 'package:university_io/common/foundations/foundations.dart';
+import 'package:university_io/features/data/datasource/database/university_db.dart';
 
 class DepartmentInfo extends StatelessWidget {
   const DepartmentInfo({required this.department, super.key});

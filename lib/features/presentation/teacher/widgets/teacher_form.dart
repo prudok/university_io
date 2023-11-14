@@ -1,11 +1,11 @@
 import 'package:drift/drift.dart' show Value;
-import 'package:education_portal/common/foundations/spacing_foundation.dart';
-import 'package:education_portal/common/ui_kit/ui_kit.dart';
-import 'package:education_portal/common/validator.dart';
-import 'package:education_portal/features/data/datasource/database/university_db.dart';
-import 'package:education_portal/features/presentation/teacher/bloc/teacher_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:university_io/common/common.dart';
+import 'package:university_io/common/foundations/spacing_foundation.dart';
+import 'package:university_io/common/ui_kit/ui_kit.dart';
+import 'package:university_io/features/data/datasource/database/university_db.dart';
+import 'package:university_io/features/presentation/teacher/bloc/teacher_bloc.dart';
 
 class TeacherForm extends StatefulWidget {
   const TeacherForm({super.key});
@@ -21,19 +21,7 @@ class _TeacherFormState extends State<TeacherForm> {
   late final TextEditingController _surnameController;
   late final TextEditingController _emailController;
   late final TeacherBloc _teacherBloc;
-  int _departmentId = 1;
   int _gender = 0;
-
-  String _getGenderValue() {
-    switch (_gender) {
-      case 1:
-        return 'man';
-      case 2:
-        return 'woman';
-      default:
-        return 'none';
-    }
-  }
 
   @override
   void initState() {
@@ -102,7 +90,7 @@ class _TeacherFormState extends State<TeacherForm> {
             ),
             SpacingFoundation.verticalSpaceSmall,
             DropdownMenu(
-              onSelected: (value) => setState(() => _departmentId = value!),
+              onSelected: (value) => setState(() {}),
               dropdownMenuEntries: const [
                 DropdownMenuEntry(value: 1, label: '1'),
                 DropdownMenuEntry(value: 2, label: '2'),
@@ -127,11 +115,7 @@ class _TeacherFormState extends State<TeacherForm> {
                           firstName: Value(_nameController.text),
                           lastName: Value(_surnameController.text),
                           email: Value(_emailController.text),
-                          gender: Value(_getGenderValue()),
-                        ),
-                        department: const DepartmentTeacherLinksCompanion(
-                          teacherId: Value(1),
-                          departmentId: Value(1),
+                          gender: Value(GenderDefiner.getGenderValue(1)),
                         ),
                       ),
                     );

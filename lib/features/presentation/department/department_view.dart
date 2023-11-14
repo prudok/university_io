@@ -1,8 +1,8 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:education_portal/features/presentation/department/bloc/department_bloc.dart';
-import 'package:education_portal/features/presentation/department/widgets/department_grid.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:university_io/features/presentation/department/bloc/department_bloc.dart';
+import 'package:university_io/features/presentation/department/widgets/department_grid.dart';
 
 @RoutePage()
 class DepartmentView extends StatelessWidget {

@@ -1,11 +1,11 @@
-import 'package:education_portal/common/foundations/spacing_foundation.dart';
-import 'package:education_portal/features/presentation/department/widgets/deparment_form.dart';
-import 'package:education_portal/features/presentation/event/widgets/event_form.dart';
-import 'package:education_portal/features/presentation/project/widgets/project_form.dart';
-import 'package:education_portal/features/presentation/student/widgets/student_form.dart';
-import 'package:education_portal/features/presentation/teacher/widgets/teacher_form.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:university_io/common/foundations/foundations.dart';
+import 'package:university_io/features/presentation/department/widgets/deparment_form.dart';
+import 'package:university_io/features/presentation/event/widgets/event_form.dart';
+import 'package:university_io/features/presentation/project/widgets/project_form.dart';
+import 'package:university_io/features/presentation/student/widgets/student_form.dart';
+import 'package:university_io/features/presentation/teacher/widgets/teacher_form.dart';
 
 class DataForm extends StatefulWidget {
   const DataForm({super.key});

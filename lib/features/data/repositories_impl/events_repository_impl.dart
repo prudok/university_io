@@ -1,6 +1,6 @@
-import 'package:education_portal/features/data/datasource/database/university_db.dart';
-import 'package:education_portal/features/domain/repositories/event_repository.dart';
 import 'package:injectable/injectable.dart';
+import 'package:university_io/features/data/datasource/database/university_db.dart';
+import 'package:university_io/features/domain/repositories/repositories.dart';
 
 @singleton
 class EventRepositoryImpl extends EventRepository {
@@ -16,11 +16,6 @@ class EventRepositoryImpl extends EventRepository {
   @override
   Future<void> delete(int id) async {
     await _db.deleteEvent(id);
-  }
-
-  @override
-  Future<Event> get(int id) {
-    throw UnimplementedError();
   }
 
   @override

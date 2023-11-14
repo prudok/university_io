@@ -1,5 +1,5 @@
 import 'package:drift/drift.dart';
-import 'package:education_portal/features/data/datasource/tables/tables.dart';
+import 'package:university_io/features/data/datasource/tables/tables.dart';
 
 @DataClassName('SportActivity')
 class SportActivities extends Table {

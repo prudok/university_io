@@ -1,8 +1,8 @@
 import 'package:bloc/bloc.dart';
-import 'package:education_portal/features/data/datasource/database/university_db.dart';
-import 'package:education_portal/features/data/repositories_impl/teacher_repository_impl.dart';
 import 'package:injectable/injectable.dart';
 import 'package:meta/meta.dart';
+import 'package:university_io/features/data/datasource/database/university_db.dart';
+import 'package:university_io/features/data/repositories_impl/repositories_impl.dart';
 
 part 'teacher_event.dart';
 part 'teacher_state.dart';
@@ -13,7 +13,7 @@ class TeacherBloc extends Bloc<TeacherEvent, TeacherState> {
     on<TeacherEvent>((event, emit) async {
       switch (event) {
         case TeacherAdd():
-          await _addTeacher(event.teacher, event.department, emit);
+          await _addTeacher(event.teacher, emit);
         case TeacherRemove():
           await _removeTeacher(event.id, emit);
         case TeacherLoad():
@@ -24,14 +24,10 @@ class TeacherBloc extends Bloc<TeacherEvent, TeacherState> {
 
   final TeacherRepositoryImpl teacherRepositoryImpl;
 
-  Future<void> _addTeacher(
-    TeachersCompanion teacher,
-    DepartmentTeacherLinksCompanion department,
-    Emitter<TeacherState> emit,
-  ) async {
+  Future<void> _addTeacher(TeachersCompanion teacher, Emitter<TeacherState> emit) async {
     try {
       emit(TeacherLoading());
-      await teacherRepositoryImpl.add(teacher, department);
+      await teacherRepositoryImpl.add(teacher);
       await _updateTeachers(emit);
     } on Object catch (error) {
       emit(TeacherFailed(errorMessage: error.toString()));

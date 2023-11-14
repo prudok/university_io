@@ -1,11 +1,11 @@
 import 'package:drift/drift.dart' show Value;
-import 'package:education_portal/common/foundations/spacing_foundation.dart';
-import 'package:education_portal/common/ui_kit/ui_kit.dart';
-import 'package:education_portal/common/validator.dart';
-import 'package:education_portal/features/data/datasource/database/university_db.dart';
-import 'package:education_portal/features/presentation/department/bloc/department_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:university_io/common/common.dart';
+import 'package:university_io/common/foundations/foundations.dart';
+import 'package:university_io/common/ui_kit/ui_kit.dart';
+import 'package:university_io/features/data/datasource/database/university_db.dart';
+import 'package:university_io/features/presentation/department/bloc/department_bloc.dart';
 
 class DepartmentForm extends StatefulWidget {
   const DepartmentForm({super.key});

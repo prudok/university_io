@@ -1,10 +1,10 @@
 import 'dart:async';
 
-import 'package:education_portal/common/initialization/initialization.dart';
-import 'package:education_portal/common/initialization/widgets/app.dart';
-import 'package:education_portal/common/initialization/widgets/app_error.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:university_io/common/initialization/initialization.dart';
+import 'package:university_io/common/initialization/widgets/app.dart';
+import 'package:university_io/common/initialization/widgets/app_error.dart';
 
 void main() => runZonedGuarded<Future<void>>(
       () async {

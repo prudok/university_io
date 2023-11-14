@@ -1,4 +1,3 @@
-//GENERATED BARREL FILE
 export 'accuracy_tables.dart';
 export 'alliances.dart';
 export 'books.dart';
@@ -17,6 +16,7 @@ export 'schedules.dart';
 export 'sport_activities.dart';
 export 'sport_teams.dart';
 export 'students.dart';
+export 'subject_teacher_link.dart';
 export 'subjects.dart';
 export 'syllabus.dart';
 export 'teachers.dart';

@@ -1,7 +1,6 @@
 import 'package:drift/drift.dart';
-import 'package:education_portal/features/data/datasource/tables/tables.dart';
+import 'package:university_io/features/data/datasource/tables/tables.dart';
 
-@DataClassName('AccuracyTable')
 class AccuracyTables extends Table {
   IntColumn get id => integer().autoIncrement()();
   IntColumn get studentId => integer().references(Students, #id)();

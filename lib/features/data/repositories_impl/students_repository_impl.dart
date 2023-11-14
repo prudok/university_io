@@ -1,6 +1,6 @@
-import 'package:education_portal/features/data/datasource/database/university_db.dart';
-import 'package:education_portal/features/domain/repositories/student_repository.dart';
 import 'package:injectable/injectable.dart';
+import 'package:university_io/features/data/datasource/database/university_db.dart';
+import 'package:university_io/features/domain/repositories/repositories.dart';
 
 @singleton
 class StudentRepositoryImpl extends StudentRepository {
@@ -16,11 +16,6 @@ class StudentRepositoryImpl extends StudentRepository {
   @override
   Future<void> delete(int id) async {
     await _db.deleteStudent(id);
-  }
-
-  @override
-  Future<Student> get(int id) {
-    throw UnimplementedError();
   }
 
   @override
