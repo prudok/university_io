@@ -1,8 +1,8 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:education_portal/features/presentation/student/bloc/student_bloc.dart';
-import 'package:education_portal/features/presentation/student/widgets/student_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:university_io/features/presentation/student/bloc/student_bloc.dart';
+import 'package:university_io/features/presentation/student/widgets/student_list.dart';
 
 @RoutePage()
 class StudentView extends StatelessWidget {

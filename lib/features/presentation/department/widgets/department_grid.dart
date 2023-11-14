@@ -1,8 +1,8 @@
-import 'package:education_portal/common/foundations/border_radius_foundation.dart';
-import 'package:education_portal/common/foundations/spacing_foundation.dart';
-import 'package:education_portal/features/data/datasource/database/university_db.dart';
-import 'package:education_portal/features/presentation/department/widgets/department_info.dart';
 import 'package:flutter/material.dart';
+import 'package:university_io/common/foundations/border_radius_foundation.dart';
+import 'package:university_io/common/foundations/foundations.dart';
+import 'package:university_io/features/data/datasource/database/university_db.dart';
+import 'package:university_io/features/presentation/department/widgets/department_info.dart';
 
 class DepartmentGrid extends StatelessWidget {
   const DepartmentGrid({required this.departments, super.key});

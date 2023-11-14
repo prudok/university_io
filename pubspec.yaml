@@ -1,4 +1,4 @@
-name: education_portal
+name: university_io
 description: A new Flutter project.
 publish_to: "none"
 
@@ -17,7 +17,6 @@ dependencies:
   injectable: ^2.3.0
   get_it: ^7.6.4
   drift: ^2.11.1
-  path_provider: ^2.1.1
 
 dev_dependencies:
   flutter_test:

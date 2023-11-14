@@ -1,8 +1,8 @@
-import 'package:education_portal/features/data/datasource/database/university_db.dart';
-import 'package:education_portal/features/presentation/project/bloc/project_bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:university_io/features/data/datasource/database/university_db.dart';
+import 'package:university_io/features/presentation/project/bloc/project_bloc.dart';
 
 class ProjectList extends StatelessWidget {
   const ProjectList({required this.projects, super.key});

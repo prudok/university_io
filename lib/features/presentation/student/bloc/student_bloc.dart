@@ -1,8 +1,8 @@
 import 'package:bloc/bloc.dart';
-import 'package:education_portal/features/data/datasource/database/university_db.dart';
-import 'package:education_portal/features/data/repositories_impl/repositories_impl.dart';
 import 'package:injectable/injectable.dart';
 import 'package:meta/meta.dart';
+import 'package:university_io/features/data/datasource/database/university_db.dart';
+import 'package:university_io/features/data/repositories_impl/repositories_impl.dart';
 
 part 'student_event.dart';
 part 'student_state.dart';

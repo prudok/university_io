@@ -1,9 +1,0 @@
-export 'classrom.dart';
-export 'curriculum.dart';
-export 'dissertation.dart';
-export 'exam.dart';
-export 'grade.dart';
-export 'group.dart';
-export 'schedule.dart';
-export 'student.dart';
-export 'subject.dart';

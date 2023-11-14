@@ -1,12 +1,12 @@
-import 'package:education_portal/config/config.dart';
-import 'package:education_portal/features/data/repositories_impl/repositories_impl.dart';
-import 'package:education_portal/features/presentation/department/bloc/department_bloc.dart';
-import 'package:education_portal/features/presentation/event/bloc/event_bloc.dart';
-import 'package:education_portal/features/presentation/project/bloc/project_bloc.dart';
-import 'package:education_portal/features/presentation/student/bloc/student_bloc.dart';
-import 'package:education_portal/features/presentation/teacher/bloc/teacher_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:university_io/config/config.dart';
+import 'package:university_io/features/data/repositories_impl/repositories_impl.dart';
+import 'package:university_io/features/presentation/department/bloc/department_bloc.dart';
+import 'package:university_io/features/presentation/event/bloc/event_bloc.dart';
+import 'package:university_io/features/presentation/project/bloc/project_bloc.dart';
+import 'package:university_io/features/presentation/student/bloc/student_bloc.dart';
+import 'package:university_io/features/presentation/teacher/bloc/teacher_bloc.dart';
 
 class App extends StatelessWidget {
   const App({super.key});

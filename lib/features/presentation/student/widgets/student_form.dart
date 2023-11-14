@@ -1,11 +1,11 @@
 import 'package:drift/drift.dart' show Value;
-import 'package:education_portal/common/foundations/spacing_foundation.dart';
-import 'package:education_portal/common/ui_kit/ui_kit.dart';
-import 'package:education_portal/common/validator.dart';
-import 'package:education_portal/features/data/datasource/database/university_db.dart';
-import 'package:education_portal/features/presentation/student/bloc/student_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:university_io/common/common.dart';
+import 'package:university_io/common/foundations/foundations.dart';
+import 'package:university_io/common/ui_kit/ui_kit.dart';
+import 'package:university_io/features/data/datasource/database/university_db.dart';
+import 'package:university_io/features/presentation/student/bloc/student_bloc.dart';
 
 class StudentForm extends StatefulWidget {
   const StudentForm({super.key});
@@ -21,6 +21,7 @@ class _StudentFormState extends State<StudentForm> {
   late final TextEditingController _surnameController;
   late final TextEditingController _emailController;
   late final StudentBloc _studentBloc;
+  int _groupId = 0;
 
   @override
   void initState() {
@@ -69,6 +70,18 @@ class _StudentFormState extends State<StudentForm> {
               labelName: 'Email',
             ),
             SpacingFoundation.verticalSpaceSmall,
+            Text('Group id', style: Theme.of(context).textTheme.bodySmall),
+            DropdownMenu(
+              onSelected: (value) => setState(() => _groupId = value!),
+              dropdownMenuEntries: const [
+                DropdownMenuEntry(value: 1, label: '1'),
+                DropdownMenuEntry(value: 2, label: '2'),
+                DropdownMenuEntry(value: 3, label: '3'),
+                DropdownMenuEntry(value: 4, label: '4'),
+                DropdownMenuEntry(value: 5, label: '5'),
+              ],
+            ),
+            SpacingFoundation.verticalSpaceMedium,
             SizedBox(
               width: 300,
               child: ElevatedButton(
@@ -84,6 +97,7 @@ class _StudentFormState extends State<StudentForm> {
                           firstName: Value(_nameController.text),
                           lastName: Value(_surnameController.text),
                           email: Value(_emailController.text),
+                          groupId: Value(_groupId),
                         ),
                       ),
                     );
