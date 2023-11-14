@@ -23,7 +23,7 @@ class TeacherList extends StatelessWidget {
           subtitle: Row(
             children: [
               Text('${teacher.lastName}, '),
-              if (teacher.gender != null) Text(teacher.gender!),
+              Text(teacher.gender),
             ],
           ),
           trailing: Wrap(
