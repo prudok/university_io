@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:university_io/features/presentation/book/book_view.dart';
 import 'package:university_io/features/presentation/department/department_view.dart';
 import 'package:university_io/features/presentation/event/event_view.dart';
 import 'package:university_io/features/presentation/home/widgets/data_form.dart';
@@ -40,7 +41,7 @@ class _HomeViewState extends State<HomeView> {
           context: context,
           builder: (_) => AlertDialog(
             content: ConstrainedBox(
-              constraints: const BoxConstraints.expand(width: 300),
+              constraints: const BoxConstraints.expand(width: 400, height: 600),
               child: const DataForm(),
             ),
           ),
@@ -85,6 +86,10 @@ class _HomeViewState extends State<HomeView> {
                 icon: Icon(CupertinoIcons.collections),
                 label: Text('Departments'),
               ),
+              NavigationRailDestination(
+                icon: Icon(CupertinoIcons.book),
+                label: Text('Books'),
+              ),
             ],
           ),
           Expanded(
@@ -99,6 +104,7 @@ class _HomeViewState extends State<HomeView> {
                 Center(child: Text('Buildings')),
                 TeacherView(),
                 DepartmentView(),
+                BookView(),
               ],
             ),
           ),

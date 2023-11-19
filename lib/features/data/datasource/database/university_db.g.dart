@@ -8,7 +8,6 @@ class $GroupsTable extends Groups with TableInfo<$GroupsTable, Group> {
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
   $GroupsTable(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
       'id', aliasedName, false,
@@ -17,13 +16,10 @@ class $GroupsTable extends Groups with TableInfo<$GroupsTable, Group> {
       requiredDuringInsert: false,
       defaultConstraints:
           GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
-  static const VerificationMeta _nameMeta = const VerificationMeta('name');
   @override
   late final GeneratedColumn<String> name = GeneratedColumn<String>(
       'name', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _starYearMeta =
-      const VerificationMeta('starYear');
   @override
   late final GeneratedColumn<int> starYear = GeneratedColumn<int>(
       'star_year', aliasedName, false,
@@ -31,32 +27,10 @@ class $GroupsTable extends Groups with TableInfo<$GroupsTable, Group> {
   @override
   List<GeneratedColumn> get $columns => [id, name, starYear];
   @override
-  String get aliasedName => _alias ?? 'groups';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'groups';
-  @override
-  VerificationContext validateIntegrity(Insertable<Group> instance,
-      {bool isInserting = false}) {
-    final context = VerificationContext();
-    final data = instance.toColumns(true);
-    if (data.containsKey('id')) {
-      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
-    }
-    if (data.containsKey('name')) {
-      context.handle(
-          _nameMeta, name.isAcceptableOrUnknown(data['name']!, _nameMeta));
-    } else if (isInserting) {
-      context.missing(_nameMeta);
-    }
-    if (data.containsKey('star_year')) {
-      context.handle(_starYearMeta,
-          starYear.isAcceptableOrUnknown(data['star_year']!, _starYearMeta));
-    } else if (isInserting) {
-      context.missing(_starYearMeta);
-    }
-    return context;
-  }
-
+  String get actualTableName => $name;
+  static const String $name = 'groups';
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
@@ -212,7 +186,6 @@ class $StudentsTable extends Students with TableInfo<$StudentsTable, Student> {
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
   $StudentsTable(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
       'id', aliasedName, false,
@@ -221,8 +194,6 @@ class $StudentsTable extends Students with TableInfo<$StudentsTable, Student> {
       requiredDuringInsert: false,
       defaultConstraints:
           GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
-  static const VerificationMeta _groupIdMeta =
-      const VerificationMeta('groupId');
   @override
   late final GeneratedColumn<int> groupId = GeneratedColumn<int>(
       'group_id', aliasedName, false,
@@ -230,31 +201,22 @@ class $StudentsTable extends Students with TableInfo<$StudentsTable, Student> {
       requiredDuringInsert: true,
       defaultConstraints:
           GeneratedColumn.constraintIsAlways('REFERENCES "groups" (id)'));
-  static const VerificationMeta _firstNameMeta =
-      const VerificationMeta('firstName');
   @override
   late final GeneratedColumn<String> firstName = GeneratedColumn<String>(
       'first_name', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _lastNameMeta =
-      const VerificationMeta('lastName');
   @override
   late final GeneratedColumn<String> lastName = GeneratedColumn<String>(
       'last_name', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _emailMeta = const VerificationMeta('email');
   @override
   late final GeneratedColumn<String> email = GeneratedColumn<String>(
       'email', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _phoneNumberMeta =
-      const VerificationMeta('phoneNumber');
   @override
   late final GeneratedColumn<String> phoneNumber = GeneratedColumn<String>(
       'phone_number', aliasedName, true,
       type: DriftSqlType.string, requiredDuringInsert: false);
-  static const VerificationMeta _addressMeta =
-      const VerificationMeta('address');
   @override
   late final GeneratedColumn<String> address = GeneratedColumn<String>(
       'address', aliasedName, true,
@@ -263,54 +225,10 @@ class $StudentsTable extends Students with TableInfo<$StudentsTable, Student> {
   List<GeneratedColumn> get $columns =>
       [id, groupId, firstName, lastName, email, phoneNumber, address];
   @override
-  String get aliasedName => _alias ?? 'students';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'students';
-  @override
-  VerificationContext validateIntegrity(Insertable<Student> instance,
-      {bool isInserting = false}) {
-    final context = VerificationContext();
-    final data = instance.toColumns(true);
-    if (data.containsKey('id')) {
-      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
-    }
-    if (data.containsKey('group_id')) {
-      context.handle(_groupIdMeta,
-          groupId.isAcceptableOrUnknown(data['group_id']!, _groupIdMeta));
-    } else if (isInserting) {
-      context.missing(_groupIdMeta);
-    }
-    if (data.containsKey('first_name')) {
-      context.handle(_firstNameMeta,
-          firstName.isAcceptableOrUnknown(data['first_name']!, _firstNameMeta));
-    } else if (isInserting) {
-      context.missing(_firstNameMeta);
-    }
-    if (data.containsKey('last_name')) {
-      context.handle(_lastNameMeta,
-          lastName.isAcceptableOrUnknown(data['last_name']!, _lastNameMeta));
-    } else if (isInserting) {
-      context.missing(_lastNameMeta);
-    }
-    if (data.containsKey('email')) {
-      context.handle(
-          _emailMeta, email.isAcceptableOrUnknown(data['email']!, _emailMeta));
-    } else if (isInserting) {
-      context.missing(_emailMeta);
-    }
-    if (data.containsKey('phone_number')) {
-      context.handle(
-          _phoneNumberMeta,
-          phoneNumber.isAcceptableOrUnknown(
-              data['phone_number']!, _phoneNumberMeta));
-    }
-    if (data.containsKey('address')) {
-      context.handle(_addressMeta,
-          address.isAcceptableOrUnknown(data['address']!, _addressMeta));
-    }
-    return context;
-  }
-
+  String get actualTableName => $name;
+  static const String $name = 'students';
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
@@ -578,7 +496,6 @@ class $SubjectsTable extends Subjects with TableInfo<$SubjectsTable, Subject> {
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
   $SubjectsTable(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
       'id', aliasedName, false,
@@ -587,7 +504,6 @@ class $SubjectsTable extends Subjects with TableInfo<$SubjectsTable, Subject> {
       requiredDuringInsert: false,
       defaultConstraints:
           GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
-  static const VerificationMeta _nameMeta = const VerificationMeta('name');
   @override
   late final GeneratedColumn<String> name = GeneratedColumn<String>(
       'name', aliasedName, false,
@@ -595,26 +511,10 @@ class $SubjectsTable extends Subjects with TableInfo<$SubjectsTable, Subject> {
   @override
   List<GeneratedColumn> get $columns => [id, name];
   @override
-  String get aliasedName => _alias ?? 'subjects';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'subjects';
-  @override
-  VerificationContext validateIntegrity(Insertable<Subject> instance,
-      {bool isInserting = false}) {
-    final context = VerificationContext();
-    final data = instance.toColumns(true);
-    if (data.containsKey('id')) {
-      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
-    }
-    if (data.containsKey('name')) {
-      context.handle(
-          _nameMeta, name.isAcceptableOrUnknown(data['name']!, _nameMeta));
-    } else if (isInserting) {
-      context.missing(_nameMeta);
-    }
-    return context;
-  }
-
+  String get actualTableName => $name;
+  static const String $name = 'subjects';
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
@@ -746,7 +646,6 @@ class $ExamsTable extends Exams with TableInfo<$ExamsTable, Exam> {
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
   $ExamsTable(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
       'id', aliasedName, false,
@@ -755,14 +654,10 @@ class $ExamsTable extends Exams with TableInfo<$ExamsTable, Exam> {
       requiredDuringInsert: false,
       defaultConstraints:
           GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
-  static const VerificationMeta _examDateMeta =
-      const VerificationMeta('examDate');
   @override
   late final GeneratedColumn<String> examDate = GeneratedColumn<String>(
       'exam_date', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _examTimeMeta =
-      const VerificationMeta('examTime');
   @override
   late final GeneratedColumn<String> examTime = GeneratedColumn<String>(
       'exam_time', aliasedName, false,
@@ -770,32 +665,10 @@ class $ExamsTable extends Exams with TableInfo<$ExamsTable, Exam> {
   @override
   List<GeneratedColumn> get $columns => [id, examDate, examTime];
   @override
-  String get aliasedName => _alias ?? 'exams';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'exams';
-  @override
-  VerificationContext validateIntegrity(Insertable<Exam> instance,
-      {bool isInserting = false}) {
-    final context = VerificationContext();
-    final data = instance.toColumns(true);
-    if (data.containsKey('id')) {
-      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
-    }
-    if (data.containsKey('exam_date')) {
-      context.handle(_examDateMeta,
-          examDate.isAcceptableOrUnknown(data['exam_date']!, _examDateMeta));
-    } else if (isInserting) {
-      context.missing(_examDateMeta);
-    }
-    if (data.containsKey('exam_time')) {
-      context.handle(_examTimeMeta,
-          examTime.isAcceptableOrUnknown(data['exam_time']!, _examTimeMeta));
-    } else if (isInserting) {
-      context.missing(_examTimeMeta);
-    }
-    return context;
-  }
-
+  String get actualTableName => $name;
+  static const String $name = 'exams';
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
@@ -953,7 +826,6 @@ class $AccuracyTablesTable extends AccuracyTables
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
   $AccuracyTablesTable(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
       'id', aliasedName, false,
@@ -962,8 +834,6 @@ class $AccuracyTablesTable extends AccuracyTables
       requiredDuringInsert: false,
       defaultConstraints:
           GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
-  static const VerificationMeta _studentIdMeta =
-      const VerificationMeta('studentId');
   @override
   late final GeneratedColumn<int> studentId = GeneratedColumn<int>(
       'student_id', aliasedName, false,
@@ -971,8 +841,6 @@ class $AccuracyTablesTable extends AccuracyTables
       requiredDuringInsert: true,
       defaultConstraints:
           GeneratedColumn.constraintIsAlways('REFERENCES students (id)'));
-  static const VerificationMeta _groupIdMeta =
-      const VerificationMeta('groupId');
   @override
   late final GeneratedColumn<int> groupId = GeneratedColumn<int>(
       'group_id', aliasedName, false,
@@ -980,8 +848,6 @@ class $AccuracyTablesTable extends AccuracyTables
       requiredDuringInsert: true,
       defaultConstraints:
           GeneratedColumn.constraintIsAlways('REFERENCES "groups" (id)'));
-  static const VerificationMeta _subjectIdMeta =
-      const VerificationMeta('subjectId');
   @override
   late final GeneratedColumn<int> subjectId = GeneratedColumn<int>(
       'subject_id', aliasedName, false,
@@ -989,7 +855,6 @@ class $AccuracyTablesTable extends AccuracyTables
       requiredDuringInsert: true,
       defaultConstraints:
           GeneratedColumn.constraintIsAlways('REFERENCES subjects (id)'));
-  static const VerificationMeta _examIdMeta = const VerificationMeta('examId');
   @override
   late final GeneratedColumn<int> examId = GeneratedColumn<int>(
       'exam_id', aliasedName, false,
@@ -1001,44 +866,10 @@ class $AccuracyTablesTable extends AccuracyTables
   List<GeneratedColumn> get $columns =>
       [id, studentId, groupId, subjectId, examId];
   @override
-  String get aliasedName => _alias ?? 'accuracy_tables';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'accuracy_tables';
-  @override
-  VerificationContext validateIntegrity(Insertable<AccuracyTable> instance,
-      {bool isInserting = false}) {
-    final context = VerificationContext();
-    final data = instance.toColumns(true);
-    if (data.containsKey('id')) {
-      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
-    }
-    if (data.containsKey('student_id')) {
-      context.handle(_studentIdMeta,
-          studentId.isAcceptableOrUnknown(data['student_id']!, _studentIdMeta));
-    } else if (isInserting) {
-      context.missing(_studentIdMeta);
-    }
-    if (data.containsKey('group_id')) {
-      context.handle(_groupIdMeta,
-          groupId.isAcceptableOrUnknown(data['group_id']!, _groupIdMeta));
-    } else if (isInserting) {
-      context.missing(_groupIdMeta);
-    }
-    if (data.containsKey('subject_id')) {
-      context.handle(_subjectIdMeta,
-          subjectId.isAcceptableOrUnknown(data['subject_id']!, _subjectIdMeta));
-    } else if (isInserting) {
-      context.missing(_subjectIdMeta);
-    }
-    if (data.containsKey('exam_id')) {
-      context.handle(_examIdMeta,
-          examId.isAcceptableOrUnknown(data['exam_id']!, _examIdMeta));
-    } else if (isInserting) {
-      context.missing(_examIdMeta);
-    }
-    return context;
-  }
-
+  String get actualTableName => $name;
+  static const String $name = 'accuracy_tables';
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
@@ -1252,7 +1083,6 @@ class $AlliancesTable extends Alliances
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
   $AlliancesTable(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
       'id', aliasedName, false,
@@ -1261,7 +1091,6 @@ class $AlliancesTable extends Alliances
       requiredDuringInsert: false,
       defaultConstraints:
           GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
-  static const VerificationMeta _nameMeta = const VerificationMeta('name');
   @override
   late final GeneratedColumn<String> name = GeneratedColumn<String>(
       'name', aliasedName, false,
@@ -1269,26 +1098,10 @@ class $AlliancesTable extends Alliances
   @override
   List<GeneratedColumn> get $columns => [id, name];
   @override
-  String get aliasedName => _alias ?? 'alliances';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'alliances';
-  @override
-  VerificationContext validateIntegrity(Insertable<Alliance> instance,
-      {bool isInserting = false}) {
-    final context = VerificationContext();
-    final data = instance.toColumns(true);
-    if (data.containsKey('id')) {
-      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
-    }
-    if (data.containsKey('name')) {
-      context.handle(
-          _nameMeta, name.isAcceptableOrUnknown(data['name']!, _nameMeta));
-    } else if (isInserting) {
-      context.missing(_nameMeta);
-    }
-    return context;
-  }
-
+  String get actualTableName => $name;
+  static const String $name = 'alliances';
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
@@ -1420,7 +1233,6 @@ class $BooksTable extends Books with TableInfo<$BooksTable, Book> {
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
   $BooksTable(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
       'id', aliasedName, false,
@@ -1429,18 +1241,14 @@ class $BooksTable extends Books with TableInfo<$BooksTable, Book> {
       requiredDuringInsert: false,
       defaultConstraints:
           GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
-  static const VerificationMeta _titleMeta = const VerificationMeta('title');
   @override
   late final GeneratedColumn<String> title = GeneratedColumn<String>(
       'title', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _authorMeta = const VerificationMeta('author');
   @override
   late final GeneratedColumn<String> author = GeneratedColumn<String>(
       'author', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _publicationYearMeta =
-      const VerificationMeta('publicationYear');
   @override
   late final GeneratedColumn<String> publicationYear = GeneratedColumn<String>(
       'publication_year', aliasedName, false,
@@ -1448,40 +1256,10 @@ class $BooksTable extends Books with TableInfo<$BooksTable, Book> {
   @override
   List<GeneratedColumn> get $columns => [id, title, author, publicationYear];
   @override
-  String get aliasedName => _alias ?? 'books';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'books';
-  @override
-  VerificationContext validateIntegrity(Insertable<Book> instance,
-      {bool isInserting = false}) {
-    final context = VerificationContext();
-    final data = instance.toColumns(true);
-    if (data.containsKey('id')) {
-      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
-    }
-    if (data.containsKey('title')) {
-      context.handle(
-          _titleMeta, title.isAcceptableOrUnknown(data['title']!, _titleMeta));
-    } else if (isInserting) {
-      context.missing(_titleMeta);
-    }
-    if (data.containsKey('author')) {
-      context.handle(_authorMeta,
-          author.isAcceptableOrUnknown(data['author']!, _authorMeta));
-    } else if (isInserting) {
-      context.missing(_authorMeta);
-    }
-    if (data.containsKey('publication_year')) {
-      context.handle(
-          _publicationYearMeta,
-          publicationYear.isAcceptableOrUnknown(
-              data['publication_year']!, _publicationYearMeta));
-    } else if (isInserting) {
-      context.missing(_publicationYearMeta);
-    }
-    return context;
-  }
-
+  String get actualTableName => $name;
+  static const String $name = 'books';
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
@@ -1668,7 +1446,6 @@ class $ClassroomsTable extends Classrooms
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
   $ClassroomsTable(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
       'id', aliasedName, false,
@@ -1677,20 +1454,14 @@ class $ClassroomsTable extends Classrooms
       requiredDuringInsert: false,
       defaultConstraints:
           GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
-  static const VerificationMeta _buildingMeta =
-      const VerificationMeta('building');
   @override
   late final GeneratedColumn<String> building = GeneratedColumn<String>(
       'building', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _roomNumberMeta =
-      const VerificationMeta('roomNumber');
   @override
   late final GeneratedColumn<int> roomNumber = GeneratedColumn<int>(
       'room_number', aliasedName, false,
       type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _capacityMeta =
-      const VerificationMeta('capacity');
   @override
   late final GeneratedColumn<int> capacity = GeneratedColumn<int>(
       'capacity', aliasedName, false,
@@ -1698,40 +1469,10 @@ class $ClassroomsTable extends Classrooms
   @override
   List<GeneratedColumn> get $columns => [id, building, roomNumber, capacity];
   @override
-  String get aliasedName => _alias ?? 'classrooms';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'classrooms';
-  @override
-  VerificationContext validateIntegrity(Insertable<Classroom> instance,
-      {bool isInserting = false}) {
-    final context = VerificationContext();
-    final data = instance.toColumns(true);
-    if (data.containsKey('id')) {
-      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
-    }
-    if (data.containsKey('building')) {
-      context.handle(_buildingMeta,
-          building.isAcceptableOrUnknown(data['building']!, _buildingMeta));
-    } else if (isInserting) {
-      context.missing(_buildingMeta);
-    }
-    if (data.containsKey('room_number')) {
-      context.handle(
-          _roomNumberMeta,
-          roomNumber.isAcceptableOrUnknown(
-              data['room_number']!, _roomNumberMeta));
-    } else if (isInserting) {
-      context.missing(_roomNumberMeta);
-    }
-    if (data.containsKey('capacity')) {
-      context.handle(_capacityMeta,
-          capacity.isAcceptableOrUnknown(data['capacity']!, _capacityMeta));
-    } else if (isInserting) {
-      context.missing(_capacityMeta);
-    }
-    return context;
-  }
-
+  String get actualTableName => $name;
+  static const String $name = 'classrooms';
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
@@ -1918,7 +1659,6 @@ class $DepartmentsTable extends Departments
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
   $DepartmentsTable(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
       'id', aliasedName, false,
@@ -1927,12 +1667,10 @@ class $DepartmentsTable extends Departments
       requiredDuringInsert: false,
       defaultConstraints:
           GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
-  static const VerificationMeta _nameMeta = const VerificationMeta('name');
   @override
   late final GeneratedColumn<String> name = GeneratedColumn<String>(
       'name', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _headIdMeta = const VerificationMeta('headId');
   @override
   late final GeneratedColumn<int> headId = GeneratedColumn<int>(
       'head_id', aliasedName, false,
@@ -1940,32 +1678,10 @@ class $DepartmentsTable extends Departments
   @override
   List<GeneratedColumn> get $columns => [id, name, headId];
   @override
-  String get aliasedName => _alias ?? 'departments';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'departments';
-  @override
-  VerificationContext validateIntegrity(Insertable<Department> instance,
-      {bool isInserting = false}) {
-    final context = VerificationContext();
-    final data = instance.toColumns(true);
-    if (data.containsKey('id')) {
-      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
-    }
-    if (data.containsKey('name')) {
-      context.handle(
-          _nameMeta, name.isAcceptableOrUnknown(data['name']!, _nameMeta));
-    } else if (isInserting) {
-      context.missing(_nameMeta);
-    }
-    if (data.containsKey('head_id')) {
-      context.handle(_headIdMeta,
-          headId.isAcceptableOrUnknown(data['head_id']!, _headIdMeta));
-    } else if (isInserting) {
-      context.missing(_headIdMeta);
-    }
-    return context;
-  }
-
+  String get actualTableName => $name;
+  static const String $name = 'departments';
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
@@ -2122,7 +1838,6 @@ class $TeachersTable extends Teachers with TableInfo<$TeachersTable, Teacher> {
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
   $TeachersTable(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
       'id', aliasedName, false,
@@ -2131,30 +1846,22 @@ class $TeachersTable extends Teachers with TableInfo<$TeachersTable, Teacher> {
       requiredDuringInsert: false,
       defaultConstraints:
           GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
-  static const VerificationMeta _firstNameMeta =
-      const VerificationMeta('firstName');
   @override
   late final GeneratedColumn<String> firstName = GeneratedColumn<String>(
       'first_name', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _lastNameMeta =
-      const VerificationMeta('lastName');
   @override
   late final GeneratedColumn<String> lastName = GeneratedColumn<String>(
       'last_name', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _emailMeta = const VerificationMeta('email');
   @override
   late final GeneratedColumn<String> email = GeneratedColumn<String>(
       'email', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _genderMeta = const VerificationMeta('gender');
   @override
   late final GeneratedColumn<String> gender = GeneratedColumn<String>(
       'gender', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _departmentIdMeta =
-      const VerificationMeta('departmentId');
   @override
   late final GeneratedColumn<int> departmentId = GeneratedColumn<int>(
       'department_id', aliasedName, false,
@@ -2166,52 +1873,10 @@ class $TeachersTable extends Teachers with TableInfo<$TeachersTable, Teacher> {
   List<GeneratedColumn> get $columns =>
       [id, firstName, lastName, email, gender, departmentId];
   @override
-  String get aliasedName => _alias ?? 'teachers';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'teachers';
-  @override
-  VerificationContext validateIntegrity(Insertable<Teacher> instance,
-      {bool isInserting = false}) {
-    final context = VerificationContext();
-    final data = instance.toColumns(true);
-    if (data.containsKey('id')) {
-      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
-    }
-    if (data.containsKey('first_name')) {
-      context.handle(_firstNameMeta,
-          firstName.isAcceptableOrUnknown(data['first_name']!, _firstNameMeta));
-    } else if (isInserting) {
-      context.missing(_firstNameMeta);
-    }
-    if (data.containsKey('last_name')) {
-      context.handle(_lastNameMeta,
-          lastName.isAcceptableOrUnknown(data['last_name']!, _lastNameMeta));
-    } else if (isInserting) {
-      context.missing(_lastNameMeta);
-    }
-    if (data.containsKey('email')) {
-      context.handle(
-          _emailMeta, email.isAcceptableOrUnknown(data['email']!, _emailMeta));
-    } else if (isInserting) {
-      context.missing(_emailMeta);
-    }
-    if (data.containsKey('gender')) {
-      context.handle(_genderMeta,
-          gender.isAcceptableOrUnknown(data['gender']!, _genderMeta));
-    } else if (isInserting) {
-      context.missing(_genderMeta);
-    }
-    if (data.containsKey('department_id')) {
-      context.handle(
-          _departmentIdMeta,
-          departmentId.isAcceptableOrUnknown(
-              data['department_id']!, _departmentIdMeta));
-    } else if (isInserting) {
-      context.missing(_departmentIdMeta);
-    }
-    return context;
-  }
-
+  String get actualTableName => $name;
+  static const String $name = 'teachers';
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
@@ -2450,7 +2115,6 @@ class $DepartmentTeacherLinksTable extends DepartmentTeacherLinks
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
   $DepartmentTeacherLinksTable(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
       'id', aliasedName, false,
@@ -2459,8 +2123,6 @@ class $DepartmentTeacherLinksTable extends DepartmentTeacherLinks
       requiredDuringInsert: false,
       defaultConstraints:
           GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
-  static const VerificationMeta _departmentIdMeta =
-      const VerificationMeta('departmentId');
   @override
   late final GeneratedColumn<int> departmentId = GeneratedColumn<int>(
       'department_id', aliasedName, false,
@@ -2468,8 +2130,6 @@ class $DepartmentTeacherLinksTable extends DepartmentTeacherLinks
       requiredDuringInsert: true,
       defaultConstraints:
           GeneratedColumn.constraintIsAlways('REFERENCES departments (id)'));
-  static const VerificationMeta _teacherIdMeta =
-      const VerificationMeta('teacherId');
   @override
   late final GeneratedColumn<int> teacherId = GeneratedColumn<int>(
       'teacher_id', aliasedName, false,
@@ -2480,35 +2140,10 @@ class $DepartmentTeacherLinksTable extends DepartmentTeacherLinks
   @override
   List<GeneratedColumn> get $columns => [id, departmentId, teacherId];
   @override
-  String get aliasedName => _alias ?? 'department_teacher_links';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'department_teacher_links';
-  @override
-  VerificationContext validateIntegrity(
-      Insertable<DepartmentTeacherLink> instance,
-      {bool isInserting = false}) {
-    final context = VerificationContext();
-    final data = instance.toColumns(true);
-    if (data.containsKey('id')) {
-      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
-    }
-    if (data.containsKey('department_id')) {
-      context.handle(
-          _departmentIdMeta,
-          departmentId.isAcceptableOrUnknown(
-              data['department_id']!, _departmentIdMeta));
-    } else if (isInserting) {
-      context.missing(_departmentIdMeta);
-    }
-    if (data.containsKey('teacher_id')) {
-      context.handle(_teacherIdMeta,
-          teacherId.isAcceptableOrUnknown(data['teacher_id']!, _teacherIdMeta));
-    } else if (isInserting) {
-      context.missing(_teacherIdMeta);
-    }
-    return context;
-  }
-
+  String get actualTableName => $name;
+  static const String $name = 'department_teacher_links';
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
@@ -2669,7 +2304,6 @@ class $EventsTable extends Events with TableInfo<$EventsTable, Event> {
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
   $EventsTable(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
       'id', aliasedName, false,
@@ -2678,25 +2312,18 @@ class $EventsTable extends Events with TableInfo<$EventsTable, Event> {
       requiredDuringInsert: false,
       defaultConstraints:
           GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
-  static const VerificationMeta _titleMeta = const VerificationMeta('title');
   @override
   late final GeneratedColumn<String> title = GeneratedColumn<String>(
       'title', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _descriptionMeta =
-      const VerificationMeta('description');
   @override
   late final GeneratedColumn<String> description = GeneratedColumn<String>(
       'description', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _startDateMeta =
-      const VerificationMeta('startDate');
   @override
   late final GeneratedColumn<String> startDate = GeneratedColumn<String>(
       'start_date', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _endDateMeta =
-      const VerificationMeta('endDate');
   @override
   late final GeneratedColumn<String> endDate = GeneratedColumn<String>(
       'end_date', aliasedName, false,
@@ -2705,46 +2332,10 @@ class $EventsTable extends Events with TableInfo<$EventsTable, Event> {
   List<GeneratedColumn> get $columns =>
       [id, title, description, startDate, endDate];
   @override
-  String get aliasedName => _alias ?? 'events';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'events';
-  @override
-  VerificationContext validateIntegrity(Insertable<Event> instance,
-      {bool isInserting = false}) {
-    final context = VerificationContext();
-    final data = instance.toColumns(true);
-    if (data.containsKey('id')) {
-      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
-    }
-    if (data.containsKey('title')) {
-      context.handle(
-          _titleMeta, title.isAcceptableOrUnknown(data['title']!, _titleMeta));
-    } else if (isInserting) {
-      context.missing(_titleMeta);
-    }
-    if (data.containsKey('description')) {
-      context.handle(
-          _descriptionMeta,
-          description.isAcceptableOrUnknown(
-              data['description']!, _descriptionMeta));
-    } else if (isInserting) {
-      context.missing(_descriptionMeta);
-    }
-    if (data.containsKey('start_date')) {
-      context.handle(_startDateMeta,
-          startDate.isAcceptableOrUnknown(data['start_date']!, _startDateMeta));
-    } else if (isInserting) {
-      context.missing(_startDateMeta);
-    }
-    if (data.containsKey('end_date')) {
-      context.handle(_endDateMeta,
-          endDate.isAcceptableOrUnknown(data['end_date']!, _endDateMeta));
-    } else if (isInserting) {
-      context.missing(_endDateMeta);
-    }
-    return context;
-  }
-
+  String get actualTableName => $name;
+  static const String $name = 'events';
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
@@ -2957,7 +2548,6 @@ class $GTOsTable extends GTOs with TableInfo<$GTOsTable, GTO> {
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
   $GTOsTable(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
       'id', aliasedName, false,
@@ -2966,7 +2556,6 @@ class $GTOsTable extends GTOs with TableInfo<$GTOsTable, GTO> {
       requiredDuringInsert: false,
       defaultConstraints:
           GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
-  static const VerificationMeta _nameMeta = const VerificationMeta('name');
   @override
   late final GeneratedColumn<String> name = GeneratedColumn<String>(
       'name', aliasedName, false,
@@ -2974,26 +2563,10 @@ class $GTOsTable extends GTOs with TableInfo<$GTOsTable, GTO> {
   @override
   List<GeneratedColumn> get $columns => [id, name];
   @override
-  String get aliasedName => _alias ?? 'g_t_os';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'g_t_os';
-  @override
-  VerificationContext validateIntegrity(Insertable<GTO> instance,
-      {bool isInserting = false}) {
-    final context = VerificationContext();
-    final data = instance.toColumns(true);
-    if (data.containsKey('id')) {
-      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
-    }
-    if (data.containsKey('name')) {
-      context.handle(
-          _nameMeta, name.isAcceptableOrUnknown(data['name']!, _nameMeta));
-    } else if (isInserting) {
-      context.missing(_nameMeta);
-    }
-    return context;
-  }
-
+  String get actualTableName => $name;
+  static const String $name = 'g_t_os';
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
@@ -3126,7 +2699,6 @@ class $LibrariesTable extends Libraries
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
   $LibrariesTable(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
       'id', aliasedName, false,
@@ -3135,13 +2707,10 @@ class $LibrariesTable extends Libraries
       requiredDuringInsert: false,
       defaultConstraints:
           GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
-  static const VerificationMeta _bookIdMeta = const VerificationMeta('bookId');
   @override
   late final GeneratedColumn<int> bookId = GeneratedColumn<int>(
       'book_id', aliasedName, false,
       type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _availabilityMeta =
-      const VerificationMeta('availability');
   @override
   late final GeneratedColumn<bool> availability = GeneratedColumn<bool>(
       'availability', aliasedName, false,
@@ -3152,34 +2721,10 @@ class $LibrariesTable extends Libraries
   @override
   List<GeneratedColumn> get $columns => [id, bookId, availability];
   @override
-  String get aliasedName => _alias ?? 'libraries';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'libraries';
-  @override
-  VerificationContext validateIntegrity(Insertable<Library> instance,
-      {bool isInserting = false}) {
-    final context = VerificationContext();
-    final data = instance.toColumns(true);
-    if (data.containsKey('id')) {
-      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
-    }
-    if (data.containsKey('book_id')) {
-      context.handle(_bookIdMeta,
-          bookId.isAcceptableOrUnknown(data['book_id']!, _bookIdMeta));
-    } else if (isInserting) {
-      context.missing(_bookIdMeta);
-    }
-    if (data.containsKey('availability')) {
-      context.handle(
-          _availabilityMeta,
-          availability.isAcceptableOrUnknown(
-              data['availability']!, _availabilityMeta));
-    } else if (isInserting) {
-      context.missing(_availabilityMeta);
-    }
-    return context;
-  }
-
+  String get actualTableName => $name;
+  static const String $name = 'libraries';
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
@@ -3336,7 +2881,6 @@ class $MarksTable extends Marks with TableInfo<$MarksTable, Mark> {
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
   $MarksTable(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
       'id', aliasedName, false,
@@ -3345,7 +2889,6 @@ class $MarksTable extends Marks with TableInfo<$MarksTable, Mark> {
       requiredDuringInsert: false,
       defaultConstraints:
           GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
-  static const VerificationMeta _gradeMeta = const VerificationMeta('grade');
   @override
   late final GeneratedColumn<int> grade = GeneratedColumn<int>(
       'grade', aliasedName, false,
@@ -3353,26 +2896,10 @@ class $MarksTable extends Marks with TableInfo<$MarksTable, Mark> {
   @override
   List<GeneratedColumn> get $columns => [id, grade];
   @override
-  String get aliasedName => _alias ?? 'marks';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'marks';
-  @override
-  VerificationContext validateIntegrity(Insertable<Mark> instance,
-      {bool isInserting = false}) {
-    final context = VerificationContext();
-    final data = instance.toColumns(true);
-    if (data.containsKey('id')) {
-      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
-    }
-    if (data.containsKey('grade')) {
-      context.handle(
-          _gradeMeta, grade.isAcceptableOrUnknown(data['grade']!, _gradeMeta));
-    } else if (isInserting) {
-      context.missing(_gradeMeta);
-    }
-    return context;
-  }
-
+  String get actualTableName => $name;
+  static const String $name = 'marks';
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
@@ -3504,7 +3031,6 @@ class $NewsTable extends News with TableInfo<$NewsTable, ONews> {
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
   $NewsTable(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
       'id', aliasedName, false,
@@ -3513,19 +3039,14 @@ class $NewsTable extends News with TableInfo<$NewsTable, ONews> {
       requiredDuringInsert: false,
       defaultConstraints:
           GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
-  static const VerificationMeta _titleMeta = const VerificationMeta('title');
   @override
   late final GeneratedColumn<String> title = GeneratedColumn<String>(
       'title', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _contentMeta =
-      const VerificationMeta('content');
   @override
   late final GeneratedColumn<String> content = GeneratedColumn<String>(
       'content', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _publicationDateMeta =
-      const VerificationMeta('publicationDate');
   @override
   late final GeneratedColumn<String> publicationDate = GeneratedColumn<String>(
       'publication_date', aliasedName, false,
@@ -3533,40 +3054,10 @@ class $NewsTable extends News with TableInfo<$NewsTable, ONews> {
   @override
   List<GeneratedColumn> get $columns => [id, title, content, publicationDate];
   @override
-  String get aliasedName => _alias ?? 'news';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'news';
-  @override
-  VerificationContext validateIntegrity(Insertable<ONews> instance,
-      {bool isInserting = false}) {
-    final context = VerificationContext();
-    final data = instance.toColumns(true);
-    if (data.containsKey('id')) {
-      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
-    }
-    if (data.containsKey('title')) {
-      context.handle(
-          _titleMeta, title.isAcceptableOrUnknown(data['title']!, _titleMeta));
-    } else if (isInserting) {
-      context.missing(_titleMeta);
-    }
-    if (data.containsKey('content')) {
-      context.handle(_contentMeta,
-          content.isAcceptableOrUnknown(data['content']!, _contentMeta));
-    } else if (isInserting) {
-      context.missing(_contentMeta);
-    }
-    if (data.containsKey('publication_date')) {
-      context.handle(
-          _publicationDateMeta,
-          publicationDate.isAcceptableOrUnknown(
-              data['publication_date']!, _publicationDateMeta));
-    } else if (isInserting) {
-      context.missing(_publicationDateMeta);
-    }
-    return context;
-  }
-
+  String get actualTableName => $name;
+  static const String $name = 'news';
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
@@ -3752,7 +3243,6 @@ class $ProjectsTable extends Projects with TableInfo<$ProjectsTable, Project> {
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
   $ProjectsTable(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
       'id', aliasedName, false,
@@ -3761,25 +3251,18 @@ class $ProjectsTable extends Projects with TableInfo<$ProjectsTable, Project> {
       requiredDuringInsert: false,
       defaultConstraints:
           GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
-  static const VerificationMeta _titleMeta = const VerificationMeta('title');
   @override
   late final GeneratedColumn<String> title = GeneratedColumn<String>(
       'title', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _descriptionMeta =
-      const VerificationMeta('description');
   @override
   late final GeneratedColumn<String> description = GeneratedColumn<String>(
       'description', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _startDateMeta =
-      const VerificationMeta('startDate');
   @override
   late final GeneratedColumn<String> startDate = GeneratedColumn<String>(
       'start_date', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _endDateMeta =
-      const VerificationMeta('endDate');
   @override
   late final GeneratedColumn<String> endDate = GeneratedColumn<String>(
       'end_date', aliasedName, false,
@@ -3788,46 +3271,10 @@ class $ProjectsTable extends Projects with TableInfo<$ProjectsTable, Project> {
   List<GeneratedColumn> get $columns =>
       [id, title, description, startDate, endDate];
   @override
-  String get aliasedName => _alias ?? 'projects';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'projects';
-  @override
-  VerificationContext validateIntegrity(Insertable<Project> instance,
-      {bool isInserting = false}) {
-    final context = VerificationContext();
-    final data = instance.toColumns(true);
-    if (data.containsKey('id')) {
-      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
-    }
-    if (data.containsKey('title')) {
-      context.handle(
-          _titleMeta, title.isAcceptableOrUnknown(data['title']!, _titleMeta));
-    } else if (isInserting) {
-      context.missing(_titleMeta);
-    }
-    if (data.containsKey('description')) {
-      context.handle(
-          _descriptionMeta,
-          description.isAcceptableOrUnknown(
-              data['description']!, _descriptionMeta));
-    } else if (isInserting) {
-      context.missing(_descriptionMeta);
-    }
-    if (data.containsKey('start_date')) {
-      context.handle(_startDateMeta,
-          startDate.isAcceptableOrUnknown(data['start_date']!, _startDateMeta));
-    } else if (isInserting) {
-      context.missing(_startDateMeta);
-    }
-    if (data.containsKey('end_date')) {
-      context.handle(_endDateMeta,
-          endDate.isAcceptableOrUnknown(data['end_date']!, _endDateMeta));
-    } else if (isInserting) {
-      context.missing(_endDateMeta);
-    }
-    return context;
-  }
-
+  String get actualTableName => $name;
+  static const String $name = 'projects';
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
@@ -4041,7 +3488,6 @@ class $SchedulesTable extends Schedules
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
   $SchedulesTable(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
       'id', aliasedName, false,
@@ -4050,26 +3496,18 @@ class $SchedulesTable extends Schedules
       requiredDuringInsert: false,
       defaultConstraints:
           GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
-  static const VerificationMeta _weekdayMeta =
-      const VerificationMeta('weekday');
   @override
   late final GeneratedColumn<int> weekday = GeneratedColumn<int>(
       'weekday', aliasedName, false,
       type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _startTimeMeta =
-      const VerificationMeta('startTime');
   @override
   late final GeneratedColumn<String> startTime = GeneratedColumn<String>(
       'start_time', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _endTimeMeta =
-      const VerificationMeta('endTime');
   @override
   late final GeneratedColumn<String> endTime = GeneratedColumn<String>(
       'end_time', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _classroomIdMeta =
-      const VerificationMeta('classroomId');
   @override
   late final GeneratedColumn<int> classroomId = GeneratedColumn<int>(
       'classroom_id', aliasedName, false,
@@ -4077,8 +3515,6 @@ class $SchedulesTable extends Schedules
       requiredDuringInsert: true,
       defaultConstraints:
           GeneratedColumn.constraintIsAlways('REFERENCES classrooms (id)'));
-  static const VerificationMeta _groupIdMeta =
-      const VerificationMeta('groupId');
   @override
   late final GeneratedColumn<int> groupId = GeneratedColumn<int>(
       'group_id', aliasedName, false,
@@ -4086,8 +3522,6 @@ class $SchedulesTable extends Schedules
       requiredDuringInsert: true,
       defaultConstraints:
           GeneratedColumn.constraintIsAlways('REFERENCES "groups" (id)'));
-  static const VerificationMeta _subjectIdMeta =
-      const VerificationMeta('subjectId');
   @override
   late final GeneratedColumn<int> subjectId = GeneratedColumn<int>(
       'subject_id', aliasedName, false,
@@ -4095,8 +3529,6 @@ class $SchedulesTable extends Schedules
       requiredDuringInsert: true,
       defaultConstraints:
           GeneratedColumn.constraintIsAlways('REFERENCES subjects (id)'));
-  static const VerificationMeta _teacherIdMeta =
-      const VerificationMeta('teacherId');
   @override
   late final GeneratedColumn<int> teacherId = GeneratedColumn<int>(
       'teacher_id', aliasedName, false,
@@ -4116,64 +3548,10 @@ class $SchedulesTable extends Schedules
         teacherId
       ];
   @override
-  String get aliasedName => _alias ?? 'schedules';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'schedules';
-  @override
-  VerificationContext validateIntegrity(Insertable<Schedule> instance,
-      {bool isInserting = false}) {
-    final context = VerificationContext();
-    final data = instance.toColumns(true);
-    if (data.containsKey('id')) {
-      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
-    }
-    if (data.containsKey('weekday')) {
-      context.handle(_weekdayMeta,
-          weekday.isAcceptableOrUnknown(data['weekday']!, _weekdayMeta));
-    } else if (isInserting) {
-      context.missing(_weekdayMeta);
-    }
-    if (data.containsKey('start_time')) {
-      context.handle(_startTimeMeta,
-          startTime.isAcceptableOrUnknown(data['start_time']!, _startTimeMeta));
-    } else if (isInserting) {
-      context.missing(_startTimeMeta);
-    }
-    if (data.containsKey('end_time')) {
-      context.handle(_endTimeMeta,
-          endTime.isAcceptableOrUnknown(data['end_time']!, _endTimeMeta));
-    } else if (isInserting) {
-      context.missing(_endTimeMeta);
-    }
-    if (data.containsKey('classroom_id')) {
-      context.handle(
-          _classroomIdMeta,
-          classroomId.isAcceptableOrUnknown(
-              data['classroom_id']!, _classroomIdMeta));
-    } else if (isInserting) {
-      context.missing(_classroomIdMeta);
-    }
-    if (data.containsKey('group_id')) {
-      context.handle(_groupIdMeta,
-          groupId.isAcceptableOrUnknown(data['group_id']!, _groupIdMeta));
-    } else if (isInserting) {
-      context.missing(_groupIdMeta);
-    }
-    if (data.containsKey('subject_id')) {
-      context.handle(_subjectIdMeta,
-          subjectId.isAcceptableOrUnknown(data['subject_id']!, _subjectIdMeta));
-    } else if (isInserting) {
-      context.missing(_subjectIdMeta);
-    }
-    if (data.containsKey('teacher_id')) {
-      context.handle(_teacherIdMeta,
-          teacherId.isAcceptableOrUnknown(data['teacher_id']!, _teacherIdMeta));
-    } else if (isInserting) {
-      context.missing(_teacherIdMeta);
-    }
-    return context;
-  }
-
+  String get actualTableName => $name;
+  static const String $name = 'schedules';
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
@@ -4460,7 +3838,6 @@ class $SportTeamsTable extends SportTeams
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
   $SportTeamsTable(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
       'id', aliasedName, false,
@@ -4469,7 +3846,6 @@ class $SportTeamsTable extends SportTeams
       requiredDuringInsert: false,
       defaultConstraints:
           GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
-  static const VerificationMeta _nameMeta = const VerificationMeta('name');
   @override
   late final GeneratedColumn<String> name = GeneratedColumn<String>(
       'name', aliasedName, false,
@@ -4477,26 +3853,10 @@ class $SportTeamsTable extends SportTeams
   @override
   List<GeneratedColumn> get $columns => [id, name];
   @override
-  String get aliasedName => _alias ?? 'sport_teams';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'sport_teams';
-  @override
-  VerificationContext validateIntegrity(Insertable<SportTeam> instance,
-      {bool isInserting = false}) {
-    final context = VerificationContext();
-    final data = instance.toColumns(true);
-    if (data.containsKey('id')) {
-      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
-    }
-    if (data.containsKey('name')) {
-      context.handle(
-          _nameMeta, name.isAcceptableOrUnknown(data['name']!, _nameMeta));
-    } else if (isInserting) {
-      context.missing(_nameMeta);
-    }
-    return context;
-  }
-
+  String get actualTableName => $name;
+  static const String $name = 'sport_teams';
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
@@ -4629,12 +3989,10 @@ class $SportActivitiesTable extends SportActivities
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
   $SportActivitiesTable(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _nameMeta = const VerificationMeta('name');
   @override
   late final GeneratedColumn<String> name = GeneratedColumn<String>(
       'name', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _gTOIdMeta = const VerificationMeta('gTOId');
   @override
   late final GeneratedColumn<int> gTOId = GeneratedColumn<int>(
       'g_t_o_id', aliasedName, false,
@@ -4642,8 +4000,6 @@ class $SportActivitiesTable extends SportActivities
       requiredDuringInsert: true,
       defaultConstraints:
           GeneratedColumn.constraintIsAlways('REFERENCES g_t_os (id)'));
-  static const VerificationMeta _sportTeamsIdMeta =
-      const VerificationMeta('sportTeamsId');
   @override
   late final GeneratedColumn<int> sportTeamsId = GeneratedColumn<int>(
       'sport_teams_id', aliasedName, false,
@@ -4651,8 +4007,6 @@ class $SportActivitiesTable extends SportActivities
       requiredDuringInsert: true,
       defaultConstraints:
           GeneratedColumn.constraintIsAlways('REFERENCES sport_teams (id)'));
-  static const VerificationMeta _allianceIdMeta =
-      const VerificationMeta('allianceId');
   @override
   late final GeneratedColumn<int> allianceId = GeneratedColumn<int>(
       'alliance_id', aliasedName, false,
@@ -4663,45 +4017,10 @@ class $SportActivitiesTable extends SportActivities
   @override
   List<GeneratedColumn> get $columns => [name, gTOId, sportTeamsId, allianceId];
   @override
-  String get aliasedName => _alias ?? 'sport_activities';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'sport_activities';
-  @override
-  VerificationContext validateIntegrity(Insertable<SportActivity> instance,
-      {bool isInserting = false}) {
-    final context = VerificationContext();
-    final data = instance.toColumns(true);
-    if (data.containsKey('name')) {
-      context.handle(
-          _nameMeta, name.isAcceptableOrUnknown(data['name']!, _nameMeta));
-    } else if (isInserting) {
-      context.missing(_nameMeta);
-    }
-    if (data.containsKey('g_t_o_id')) {
-      context.handle(_gTOIdMeta,
-          gTOId.isAcceptableOrUnknown(data['g_t_o_id']!, _gTOIdMeta));
-    } else if (isInserting) {
-      context.missing(_gTOIdMeta);
-    }
-    if (data.containsKey('sport_teams_id')) {
-      context.handle(
-          _sportTeamsIdMeta,
-          sportTeamsId.isAcceptableOrUnknown(
-              data['sport_teams_id']!, _sportTeamsIdMeta));
-    } else if (isInserting) {
-      context.missing(_sportTeamsIdMeta);
-    }
-    if (data.containsKey('alliance_id')) {
-      context.handle(
-          _allianceIdMeta,
-          allianceId.isAcceptableOrUnknown(
-              data['alliance_id']!, _allianceIdMeta));
-    } else if (isInserting) {
-      context.missing(_allianceIdMeta);
-    }
-    return context;
-  }
-
+  String get actualTableName => $name;
+  static const String $name = 'sport_activities';
   @override
   Set<GeneratedColumn> get $primaryKey => const {};
   @override
@@ -4900,14 +4219,10 @@ class $SubjectTeacherLinksTable extends SubjectTeacherLinks
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
   $SubjectTeacherLinksTable(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _departmentIdMeta =
-      const VerificationMeta('departmentId');
   @override
   late final GeneratedColumn<int> departmentId = GeneratedColumn<int>(
       'department_id', aliasedName, false,
       type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _teacherIdMeta =
-      const VerificationMeta('teacherId');
   @override
   late final GeneratedColumn<int> teacherId = GeneratedColumn<int>(
       'teacher_id', aliasedName, false,
@@ -4915,31 +4230,10 @@ class $SubjectTeacherLinksTable extends SubjectTeacherLinks
   @override
   List<GeneratedColumn> get $columns => [departmentId, teacherId];
   @override
-  String get aliasedName => _alias ?? 'subject_teacher_links';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'subject_teacher_links';
-  @override
-  VerificationContext validateIntegrity(Insertable<SubjectTeacherLink> instance,
-      {bool isInserting = false}) {
-    final context = VerificationContext();
-    final data = instance.toColumns(true);
-    if (data.containsKey('department_id')) {
-      context.handle(
-          _departmentIdMeta,
-          departmentId.isAcceptableOrUnknown(
-              data['department_id']!, _departmentIdMeta));
-    } else if (isInserting) {
-      context.missing(_departmentIdMeta);
-    }
-    if (data.containsKey('teacher_id')) {
-      context.handle(_teacherIdMeta,
-          teacherId.isAcceptableOrUnknown(data['teacher_id']!, _teacherIdMeta));
-    } else if (isInserting) {
-      context.missing(_teacherIdMeta);
-    }
-    return context;
-  }
-
+  String get actualTableName => $name;
+  static const String $name = 'subject_teacher_links';
   @override
   Set<GeneratedColumn> get $primaryKey => const {};
   @override
@@ -5088,7 +4382,6 @@ class $SyllabusTable extends Syllabus with TableInfo<$SyllabusTable, Syllabu> {
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
   $SyllabusTable(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
       'id', aliasedName, false,
@@ -5097,7 +4390,6 @@ class $SyllabusTable extends Syllabus with TableInfo<$SyllabusTable, Syllabu> {
       requiredDuringInsert: false,
       defaultConstraints:
           GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
-  static const VerificationMeta _nameMeta = const VerificationMeta('name');
   @override
   late final GeneratedColumn<String> name = GeneratedColumn<String>(
       'name', aliasedName, false,
@@ -5105,26 +4397,10 @@ class $SyllabusTable extends Syllabus with TableInfo<$SyllabusTable, Syllabu> {
   @override
   List<GeneratedColumn> get $columns => [id, name];
   @override
-  String get aliasedName => _alias ?? 'syllabus';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'syllabus';
-  @override
-  VerificationContext validateIntegrity(Insertable<Syllabu> instance,
-      {bool isInserting = false}) {
-    final context = VerificationContext();
-    final data = instance.toColumns(true);
-    if (data.containsKey('id')) {
-      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
-    }
-    if (data.containsKey('name')) {
-      context.handle(
-          _nameMeta, name.isAcceptableOrUnknown(data['name']!, _nameMeta));
-    } else if (isInserting) {
-      context.missing(_nameMeta);
-    }
-    return context;
-  }
-
+  String get actualTableName => $name;
+  static const String $name = 'syllabus';
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
@@ -5256,7 +4532,6 @@ class $TorchesTable extends Torches with TableInfo<$TorchesTable, Torch> {
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
   $TorchesTable(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
       'id', aliasedName, false,
@@ -5265,13 +4540,10 @@ class $TorchesTable extends Torches with TableInfo<$TorchesTable, Torch> {
       requiredDuringInsert: false,
       defaultConstraints:
           GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
-  static const VerificationMeta _dateMeta = const VerificationMeta('date');
   @override
   late final GeneratedColumn<String> date = GeneratedColumn<String>(
       'date', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _descriptionMeta =
-      const VerificationMeta('description');
   @override
   late final GeneratedColumn<String> description = GeneratedColumn<String>(
       'description', aliasedName, false,
@@ -5279,34 +4551,10 @@ class $TorchesTable extends Torches with TableInfo<$TorchesTable, Torch> {
   @override
   List<GeneratedColumn> get $columns => [id, date, description];
   @override
-  String get aliasedName => _alias ?? 'torches';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'torches';
-  @override
-  VerificationContext validateIntegrity(Insertable<Torch> instance,
-      {bool isInserting = false}) {
-    final context = VerificationContext();
-    final data = instance.toColumns(true);
-    if (data.containsKey('id')) {
-      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
-    }
-    if (data.containsKey('date')) {
-      context.handle(
-          _dateMeta, date.isAcceptableOrUnknown(data['date']!, _dateMeta));
-    } else if (isInserting) {
-      context.missing(_dateMeta);
-    }
-    if (data.containsKey('description')) {
-      context.handle(
-          _descriptionMeta,
-          description.isAcceptableOrUnknown(
-              data['description']!, _descriptionMeta));
-    } else if (isInserting) {
-      context.missing(_descriptionMeta);
-    }
-    return context;
-  }
-
+  String get actualTableName => $name;
+  static const String $name = 'torches';
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
@@ -5464,7 +4712,6 @@ class $VolunteeringTable extends Volunteering
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
   $VolunteeringTable(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
       'id', aliasedName, false,
@@ -5473,12 +4720,10 @@ class $VolunteeringTable extends Volunteering
       requiredDuringInsert: false,
       defaultConstraints:
           GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
-  static const VerificationMeta _nameMeta = const VerificationMeta('name');
   @override
   late final GeneratedColumn<String> name = GeneratedColumn<String>(
       'name', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _dateMeta = const VerificationMeta('date');
   @override
   late final GeneratedColumn<String> date = GeneratedColumn<String>(
       'date', aliasedName, false,
@@ -5486,32 +4731,10 @@ class $VolunteeringTable extends Volunteering
   @override
   List<GeneratedColumn> get $columns => [id, name, date];
   @override
-  String get aliasedName => _alias ?? 'volunteering';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'volunteering';
-  @override
-  VerificationContext validateIntegrity(Insertable<OVolunteering> instance,
-      {bool isInserting = false}) {
-    final context = VerificationContext();
-    final data = instance.toColumns(true);
-    if (data.containsKey('id')) {
-      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
-    }
-    if (data.containsKey('name')) {
-      context.handle(
-          _nameMeta, name.isAcceptableOrUnknown(data['name']!, _nameMeta));
-    } else if (isInserting) {
-      context.missing(_nameMeta);
-    }
-    if (data.containsKey('date')) {
-      context.handle(
-          _dateMeta, date.isAcceptableOrUnknown(data['date']!, _dateMeta));
-    } else if (isInserting) {
-      context.missing(_dateMeta);
-    }
-    return context;
-  }
-
+  String get actualTableName => $name;
+  static const String $name = 'volunteering';
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
@@ -5670,8 +4893,6 @@ class $TypesOfActivitiesTable extends TypesOfActivities
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
   $TypesOfActivitiesTable(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _studentIdMeta =
-      const VerificationMeta('studentId');
   @override
   late final GeneratedColumn<int> studentId = GeneratedColumn<int>(
       'student_id', aliasedName, false,
@@ -5679,8 +4900,6 @@ class $TypesOfActivitiesTable extends TypesOfActivities
       requiredDuringInsert: true,
       defaultConstraints:
           GeneratedColumn.constraintIsAlways('REFERENCES students (id)'));
-  static const VerificationMeta _groupIdMeta =
-      const VerificationMeta('groupId');
   @override
   late final GeneratedColumn<int> groupId = GeneratedColumn<int>(
       'group_id', aliasedName, false,
@@ -5688,8 +4907,6 @@ class $TypesOfActivitiesTable extends TypesOfActivities
       requiredDuringInsert: true,
       defaultConstraints:
           GeneratedColumn.constraintIsAlways('REFERENCES "groups" (id)'));
-  static const VerificationMeta _volunteeringIdMeta =
-      const VerificationMeta('volunteeringId');
   @override
   late final GeneratedColumn<int> volunteeringId = GeneratedColumn<int>(
       'volunteering_id', aliasedName, false,
@@ -5697,8 +4914,6 @@ class $TypesOfActivitiesTable extends TypesOfActivities
       requiredDuringInsert: true,
       defaultConstraints:
           GeneratedColumn.constraintIsAlways('REFERENCES volunteering (id)'));
-  static const VerificationMeta _torchIdMeta =
-      const VerificationMeta('torchId');
   @override
   late final GeneratedColumn<int> torchId = GeneratedColumn<int>(
       'torch_id', aliasedName, false,
@@ -5710,43 +4925,10 @@ class $TypesOfActivitiesTable extends TypesOfActivities
   List<GeneratedColumn> get $columns =>
       [studentId, groupId, volunteeringId, torchId];
   @override
-  String get aliasedName => _alias ?? 'types_of_activities';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'types_of_activities';
-  @override
-  VerificationContext validateIntegrity(Insertable<TypeOfActivity> instance,
-      {bool isInserting = false}) {
-    final context = VerificationContext();
-    final data = instance.toColumns(true);
-    if (data.containsKey('student_id')) {
-      context.handle(_studentIdMeta,
-          studentId.isAcceptableOrUnknown(data['student_id']!, _studentIdMeta));
-    } else if (isInserting) {
-      context.missing(_studentIdMeta);
-    }
-    if (data.containsKey('group_id')) {
-      context.handle(_groupIdMeta,
-          groupId.isAcceptableOrUnknown(data['group_id']!, _groupIdMeta));
-    } else if (isInserting) {
-      context.missing(_groupIdMeta);
-    }
-    if (data.containsKey('volunteering_id')) {
-      context.handle(
-          _volunteeringIdMeta,
-          volunteeringId.isAcceptableOrUnknown(
-              data['volunteering_id']!, _volunteeringIdMeta));
-    } else if (isInserting) {
-      context.missing(_volunteeringIdMeta);
-    }
-    if (data.containsKey('torch_id')) {
-      context.handle(_torchIdMeta,
-          torchId.isAcceptableOrUnknown(data['torch_id']!, _torchIdMeta));
-    } else if (isInserting) {
-      context.missing(_torchIdMeta);
-    }
-    return context;
-  }
-
+  String get actualTableName => $name;
+  static const String $name = 'types_of_activities';
   @override
   Set<GeneratedColumn> get $primaryKey => const {};
   @override
@@ -5945,7 +5127,6 @@ class $UniversityDormitoriesTable extends UniversityDormitories
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
   $UniversityDormitoriesTable(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
       'id', aliasedName, false,
@@ -5954,13 +5135,10 @@ class $UniversityDormitoriesTable extends UniversityDormitories
       requiredDuringInsert: false,
       defaultConstraints:
           GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
-  static const VerificationMeta _nameMeta = const VerificationMeta('name');
   @override
   late final GeneratedColumn<String> name = GeneratedColumn<String>(
       'name', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _addressMeta =
-      const VerificationMeta('address');
   @override
   late final GeneratedColumn<String> address = GeneratedColumn<String>(
       'address', aliasedName, false,
@@ -5968,33 +5146,10 @@ class $UniversityDormitoriesTable extends UniversityDormitories
   @override
   List<GeneratedColumn> get $columns => [id, name, address];
   @override
-  String get aliasedName => _alias ?? 'university_dormitories';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'university_dormitories';
-  @override
-  VerificationContext validateIntegrity(
-      Insertable<UniversityDormitory> instance,
-      {bool isInserting = false}) {
-    final context = VerificationContext();
-    final data = instance.toColumns(true);
-    if (data.containsKey('id')) {
-      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
-    }
-    if (data.containsKey('name')) {
-      context.handle(
-          _nameMeta, name.isAcceptableOrUnknown(data['name']!, _nameMeta));
-    } else if (isInserting) {
-      context.missing(_nameMeta);
-    }
-    if (data.containsKey('address')) {
-      context.handle(_addressMeta,
-          address.isAcceptableOrUnknown(data['address']!, _addressMeta));
-    } else if (isInserting) {
-      context.missing(_addressMeta);
-    }
-    return context;
-  }
-
+  String get actualTableName => $name;
+  static const String $name = 'university_dormitories';
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override

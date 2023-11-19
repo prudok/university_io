@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:university_io/config/config.dart';
 import 'package:university_io/features/data/repositories_impl/repositories_impl.dart';
+import 'package:university_io/features/presentation/book/bloc/book_bloc.dart';
 import 'package:university_io/features/presentation/department/bloc/department_bloc.dart';
 import 'package:university_io/features/presentation/event/bloc/event_bloc.dart';
 import 'package:university_io/features/presentation/project/bloc/project_bloc.dart';
@@ -29,6 +30,9 @@ class App extends StatelessWidget {
         ),
         BlocProvider(
           create: (_) => DepartmentBloc(getIt<DepartmentRepositoryImpl>())..add(DepartmentLoad()),
+        ),
+        BlocProvider(
+          create: (_) => BookBloc(getIt<BookRepositoryImpl>())..add(BookLoad()),
         ),
       ],
       child: MaterialApp.router(

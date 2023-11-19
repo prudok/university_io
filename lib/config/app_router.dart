@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:injectable/injectable.dart';
+import 'package:university_io/features/presentation/book/book_view.dart';
 import 'package:university_io/features/presentation/department/department_view.dart';
 import 'package:university_io/features/presentation/event/event_view.dart';
 import 'package:university_io/features/presentation/home/home.dart';

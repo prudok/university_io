@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:university_io/common/foundations/border_radius_foundation.dart';
 import 'package:university_io/common/foundations/foundations.dart';
 import 'package:university_io/features/data/datasource/database/university_db.dart';
 import 'package:university_io/features/presentation/department/widgets/department_info.dart';
