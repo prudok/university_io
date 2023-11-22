@@ -45,6 +45,12 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const LibraryView(),
       );
     },
+    MarkRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const MarkView(),
+      );
+    },
     ProjectRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -132,6 +138,20 @@ class LibraryRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'LibraryRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [MarkView]
+class MarkRoute extends PageRouteInfo<void> {
+  const MarkRoute({List<PageRouteInfo>? children})
+      : super(
+          MarkRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'MarkRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }

@@ -6,6 +6,7 @@ import 'package:university_io/features/presentation/department/department_view.d
 import 'package:university_io/features/presentation/event/event_view.dart';
 import 'package:university_io/features/presentation/home/widgets/data_form.dart';
 import 'package:university_io/features/presentation/library/library_view.dart';
+import 'package:university_io/features/presentation/mark/mark_view.dart';
 import 'package:university_io/features/presentation/project/project_view.dart';
 import 'package:university_io/features/presentation/student/student_view.dart';
 import 'package:university_io/features/presentation/teacher/teacher_view.dart';
@@ -95,6 +96,10 @@ class _HomeViewState extends State<HomeView> {
                 icon: Icon(CupertinoIcons.book_solid),
                 label: Text('Libraries'),
               ),
+              NavigationRailDestination(
+                icon: Icon(Icons.grade),
+                label: Text('Marks'),
+              ),
             ],
           ),
           Expanded(
@@ -111,6 +116,7 @@ class _HomeViewState extends State<HomeView> {
                 DepartmentView(),
                 BookView(),
                 LibraryView(),
+                MarkView(),
               ],
             ),
           ),

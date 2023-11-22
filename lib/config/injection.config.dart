@@ -71,12 +71,14 @@ import 'package:university_io/features/presentation/event/bloc/event_bloc.dart'
     as _i32;
 import 'package:university_io/features/presentation/library/bloc/library_bloc.dart'
     as _i33;
-import 'package:university_io/features/presentation/project/bloc/project_bloc.dart'
+import 'package:university_io/features/presentation/mark/bloc/mark_bloc.dart'
     as _i34;
-import 'package:university_io/features/presentation/student/bloc/student_bloc.dart'
+import 'package:university_io/features/presentation/project/bloc/project_bloc.dart'
     as _i35;
-import 'package:university_io/features/presentation/teacher/bloc/teacher_bloc.dart'
+import 'package:university_io/features/presentation/student/bloc/student_bloc.dart'
     as _i36;
+import 'package:university_io/features/presentation/teacher/bloc/teacher_bloc.dart'
+    as _i37;
 
 extension GetItInjectableX on _i1.GetIt {
 // initializes the registration of main-scope dependencies inside of GetIt
@@ -149,12 +151,14 @@ extension GetItInjectableX on _i1.GetIt {
         () => _i32.EventBloc(gh<_i30.EventRepositoryImpl>()));
     gh.factory<_i33.LibraryBloc>(
         () => _i33.LibraryBloc(gh<_i30.LibraryRepositoryImpl>()));
-    gh.factory<_i34.ProjectBloc>(
-        () => _i34.ProjectBloc(gh<_i30.ProjectRepositoryImpl>()));
-    gh.factory<_i35.StudentBloc>(
-        () => _i35.StudentBloc(gh<_i30.StudentRepositoryImpl>()));
-    gh.factory<_i36.TeacherBloc>(
-        () => _i36.TeacherBloc(gh<_i30.TeacherRepositoryImpl>()));
+    gh.factory<_i34.MarkBloc>(
+        () => _i34.MarkBloc(gh<_i30.MarkRepositoryImpl>()));
+    gh.factory<_i35.ProjectBloc>(
+        () => _i35.ProjectBloc(gh<_i30.ProjectRepositoryImpl>()));
+    gh.factory<_i36.StudentBloc>(
+        () => _i36.StudentBloc(gh<_i30.StudentRepositoryImpl>()));
+    gh.factory<_i37.TeacherBloc>(
+        () => _i37.TeacherBloc(gh<_i30.TeacherRepositoryImpl>()));
     return this;
   }
 }
