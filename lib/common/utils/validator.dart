@@ -43,4 +43,13 @@ abstract class Validator {
       return 'Please Fill Form Correctly';
     }
   }
+
+  static String? validId(String? value) {
+    if (value != null && value.isNotEmpty) {
+      if (int.tryParse(value) != null) {
+        return null;
+      }
+    }
+    return 'Please Fill Form Correctly';
+  }
 }

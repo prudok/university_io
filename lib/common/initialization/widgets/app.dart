@@ -5,6 +5,7 @@ import 'package:university_io/features/data/repositories_impl/repositories_impl.
 import 'package:university_io/features/presentation/book/bloc/book_bloc.dart';
 import 'package:university_io/features/presentation/department/bloc/department_bloc.dart';
 import 'package:university_io/features/presentation/event/bloc/event_bloc.dart';
+import 'package:university_io/features/presentation/library/bloc/library_bloc.dart';
 import 'package:university_io/features/presentation/project/bloc/project_bloc.dart';
 import 'package:university_io/features/presentation/student/bloc/student_bloc.dart';
 import 'package:university_io/features/presentation/teacher/bloc/teacher_bloc.dart';
@@ -33,6 +34,9 @@ class App extends StatelessWidget {
         ),
         BlocProvider(
           create: (_) => BookBloc(getIt<BookRepositoryImpl>())..add(BookLoad()),
+        ),
+        BlocProvider(
+          create: (_) => LibraryBloc(getIt<LibraryRepositoryImpl>())..add(LibraryLoad()),
         ),
       ],
       child: MaterialApp.router(

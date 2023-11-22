@@ -4,6 +4,7 @@ import 'package:university_io/common/foundations/foundations.dart';
 import 'package:university_io/features/presentation/book/widgets/book_form.dart';
 import 'package:university_io/features/presentation/department/widgets/deparment_form.dart';
 import 'package:university_io/features/presentation/event/widgets/event_form.dart';
+import 'package:university_io/features/presentation/library/widgets/library_form.dart';
 import 'package:university_io/features/presentation/project/widgets/project_form.dart';
 import 'package:university_io/features/presentation/student/widgets/student_form.dart';
 import 'package:university_io/features/presentation/teacher/widgets/teacher_form.dart';
@@ -21,7 +22,7 @@ class _DataFormState extends State<DataForm> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 6, vsync: this);
+    _tabController = TabController(length: 7, vsync: this);
   }
 
   @override
@@ -43,6 +44,7 @@ class _DataFormState extends State<DataForm> with TickerProviderStateMixin {
             Tab(icon: Icon(CupertinoIcons.table)),
             Tab(icon: Icon(Icons.sticky_note_2)),
             Tab(icon: Icon(Icons.book)),
+            Tab(icon: Icon(CupertinoIcons.book_solid)),
           ],
         ),
         Expanded(
@@ -55,6 +57,7 @@ class _DataFormState extends State<DataForm> with TickerProviderStateMixin {
               ProjectForm(),
               DepartmentForm(),
               BookForm(),
+              LibraryForm(),
             ],
           ),
         ),

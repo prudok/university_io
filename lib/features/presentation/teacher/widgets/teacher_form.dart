@@ -1,9 +1,9 @@
 import 'package:drift/drift.dart' show Value;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:university_io/common/common.dart';
 import 'package:university_io/common/foundations/spacing_foundation.dart';
 import 'package:university_io/common/ui_kit/ui_kit.dart';
+import 'package:university_io/common/utils/validator.dart';
 import 'package:university_io/features/data/datasource/database/university_db.dart';
 import 'package:university_io/features/presentation/teacher/bloc/teacher_bloc.dart';
 
@@ -115,7 +115,6 @@ class _TeacherFormState extends State<TeacherForm> {
                           firstName: Value(_nameController.text),
                           lastName: Value(_surnameController.text),
                           email: Value(_emailController.text),
-                          // gender: Value(GenderDefiner.getGenderValue(1)),
                         ),
                       ),
                     );

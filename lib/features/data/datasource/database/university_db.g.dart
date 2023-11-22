@@ -2709,8 +2709,8 @@ class $LibrariesTable extends Libraries
           GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
   @override
   late final GeneratedColumn<int> bookId = GeneratedColumn<int>(
-      'book_id', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
+      'book_id', aliasedName, true,
+      type: DriftSqlType.int, requiredDuringInsert: false);
   @override
   late final GeneratedColumn<bool> availability = GeneratedColumn<bool>(
       'availability', aliasedName, false,
@@ -2734,7 +2734,7 @@ class $LibrariesTable extends Libraries
       id: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
       bookId: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}book_id'])!,
+          .read(DriftSqlType.int, data['${effectivePrefix}book_id']),
       availability: attachedDatabase.typeMapping
           .read(DriftSqlType.bool, data['${effectivePrefix}availability'])!,
     );
@@ -2748,15 +2748,16 @@ class $LibrariesTable extends Libraries
 
 class Library extends DataClass implements Insertable<Library> {
   final int id;
-  final int bookId;
+  final int? bookId;
   final bool availability;
-  const Library(
-      {required this.id, required this.bookId, required this.availability});
+  const Library({required this.id, this.bookId, required this.availability});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     map['id'] = Variable<int>(id);
-    map['book_id'] = Variable<int>(bookId);
+    if (!nullToAbsent || bookId != null) {
+      map['book_id'] = Variable<int>(bookId);
+    }
     map['availability'] = Variable<bool>(availability);
     return map;
   }
@@ -2764,7 +2765,8 @@ class Library extends DataClass implements Insertable<Library> {
   LibrariesCompanion toCompanion(bool nullToAbsent) {
     return LibrariesCompanion(
       id: Value(id),
-      bookId: Value(bookId),
+      bookId:
+          bookId == null && nullToAbsent ? const Value.absent() : Value(bookId),
       availability: Value(availability),
     );
   }
@@ -2774,7 +2776,7 @@ class Library extends DataClass implements Insertable<Library> {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return Library(
       id: serializer.fromJson<int>(json['id']),
-      bookId: serializer.fromJson<int>(json['bookId']),
+      bookId: serializer.fromJson<int?>(json['bookId']),
       availability: serializer.fromJson<bool>(json['availability']),
     );
   }
@@ -2783,14 +2785,18 @@ class Library extends DataClass implements Insertable<Library> {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
       'id': serializer.toJson<int>(id),
-      'bookId': serializer.toJson<int>(bookId),
+      'bookId': serializer.toJson<int?>(bookId),
       'availability': serializer.toJson<bool>(availability),
     };
   }
 
-  Library copyWith({int? id, int? bookId, bool? availability}) => Library(
+  Library copyWith(
+          {int? id,
+          Value<int?> bookId = const Value.absent(),
+          bool? availability}) =>
+      Library(
         id: id ?? this.id,
-        bookId: bookId ?? this.bookId,
+        bookId: bookId.present ? bookId.value : this.bookId,
         availability: availability ?? this.availability,
       );
   @override
@@ -2816,7 +2822,7 @@ class Library extends DataClass implements Insertable<Library> {
 
 class LibrariesCompanion extends UpdateCompanion<Library> {
   final Value<int> id;
-  final Value<int> bookId;
+  final Value<int?> bookId;
   final Value<bool> availability;
   const LibrariesCompanion({
     this.id = const Value.absent(),
@@ -2825,10 +2831,9 @@ class LibrariesCompanion extends UpdateCompanion<Library> {
   });
   LibrariesCompanion.insert({
     this.id = const Value.absent(),
-    required int bookId,
+    this.bookId = const Value.absent(),
     required bool availability,
-  })  : bookId = Value(bookId),
-        availability = Value(availability);
+  }) : availability = Value(availability);
   static Insertable<Library> custom({
     Expression<int>? id,
     Expression<int>? bookId,
@@ -2842,7 +2847,7 @@ class LibrariesCompanion extends UpdateCompanion<Library> {
   }
 
   LibrariesCompanion copyWith(
-      {Value<int>? id, Value<int>? bookId, Value<bool>? availability}) {
+      {Value<int>? id, Value<int?>? bookId, Value<bool>? availability}) {
     return LibrariesCompanion(
       id: id ?? this.id,
       bookId: bookId ?? this.bookId,

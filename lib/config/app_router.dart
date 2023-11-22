@@ -4,6 +4,7 @@ import 'package:university_io/features/presentation/book/book_view.dart';
 import 'package:university_io/features/presentation/department/department_view.dart';
 import 'package:university_io/features/presentation/event/event_view.dart';
 import 'package:university_io/features/presentation/home/home.dart';
+import 'package:university_io/features/presentation/library/library_view.dart';
 import 'package:university_io/features/presentation/project/project_view.dart';
 import 'package:university_io/features/presentation/student/student_view.dart';
 import 'package:university_io/features/presentation/teacher/teacher_view.dart';
