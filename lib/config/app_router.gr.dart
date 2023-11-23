@@ -21,6 +21,12 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const BookView(),
       );
     },
+    ClassroomRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const ClassroomView(),
+      );
+    },
     DepartmentRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -69,6 +75,12 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const TeacherView(),
       );
     },
+    TorchRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const TorchView(),
+      );
+    },
   };
 }
 
@@ -82,6 +94,20 @@ class BookRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'BookRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [ClassroomView]
+class ClassroomRoute extends PageRouteInfo<void> {
+  const ClassroomRoute({List<PageRouteInfo>? children})
+      : super(
+          ClassroomRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'ClassroomRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }
@@ -194,6 +220,20 @@ class TeacherRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'TeacherRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [TorchView]
+class TorchRoute extends PageRouteInfo<void> {
+  const TorchRoute({List<PageRouteInfo>? children})
+      : super(
+          TorchRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'TorchRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }

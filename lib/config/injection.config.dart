@@ -65,20 +65,24 @@ import 'package:university_io/features/data/repositories_impl/volunteering_repos
     as _i6;
 import 'package:university_io/features/presentation/book/bloc/book_bloc.dart'
     as _i29;
-import 'package:university_io/features/presentation/department/bloc/department_bloc.dart'
+import 'package:university_io/features/presentation/classroom/bloc/classroom_bloc.dart'
     as _i31;
-import 'package:university_io/features/presentation/event/bloc/event_bloc.dart'
+import 'package:university_io/features/presentation/department/bloc/department_bloc.dart'
     as _i32;
-import 'package:university_io/features/presentation/library/bloc/library_bloc.dart'
+import 'package:university_io/features/presentation/event/bloc/event_bloc.dart'
     as _i33;
-import 'package:university_io/features/presentation/mark/bloc/mark_bloc.dart'
+import 'package:university_io/features/presentation/library/bloc/library_bloc.dart'
     as _i34;
-import 'package:university_io/features/presentation/project/bloc/project_bloc.dart'
+import 'package:university_io/features/presentation/mark/bloc/mark_bloc.dart'
     as _i35;
-import 'package:university_io/features/presentation/student/bloc/student_bloc.dart'
+import 'package:university_io/features/presentation/project/bloc/project_bloc.dart'
     as _i36;
-import 'package:university_io/features/presentation/teacher/bloc/teacher_bloc.dart'
+import 'package:university_io/features/presentation/student/bloc/student_bloc.dart'
     as _i37;
+import 'package:university_io/features/presentation/teacher/bloc/teacher_bloc.dart'
+    as _i38;
+import 'package:university_io/features/presentation/torch/bloc/torch_bloc.dart'
+    as _i39;
 
 extension GetItInjectableX on _i1.GetIt {
 // initializes the registration of main-scope dependencies inside of GetIt
@@ -145,20 +149,24 @@ extension GetItInjectableX on _i1.GetIt {
         _i28.TypeOfActivitiesRepositoryImpl(db: gh<_i4.UniversityDatabase>()));
     gh.factory<_i29.BookBloc>(
         () => _i29.BookBloc(gh<_i30.BookRepositoryImpl>()));
-    gh.factory<_i31.DepartmentBloc>(
-        () => _i31.DepartmentBloc(gh<_i30.DepartmentRepositoryImpl>()));
-    gh.factory<_i32.EventBloc>(
-        () => _i32.EventBloc(gh<_i30.EventRepositoryImpl>()));
-    gh.factory<_i33.LibraryBloc>(
-        () => _i33.LibraryBloc(gh<_i30.LibraryRepositoryImpl>()));
-    gh.factory<_i34.MarkBloc>(
-        () => _i34.MarkBloc(gh<_i30.MarkRepositoryImpl>()));
-    gh.factory<_i35.ProjectBloc>(
-        () => _i35.ProjectBloc(gh<_i30.ProjectRepositoryImpl>()));
-    gh.factory<_i36.StudentBloc>(
-        () => _i36.StudentBloc(gh<_i30.StudentRepositoryImpl>()));
-    gh.factory<_i37.TeacherBloc>(
-        () => _i37.TeacherBloc(gh<_i30.TeacherRepositoryImpl>()));
+    gh.factory<_i31.ClassroomBloc>(
+        () => _i31.ClassroomBloc(gh<_i30.ClassroomRepositoryImpl>()));
+    gh.factory<_i32.DepartmentBloc>(
+        () => _i32.DepartmentBloc(gh<_i30.DepartmentRepositoryImpl>()));
+    gh.factory<_i33.EventBloc>(
+        () => _i33.EventBloc(gh<_i30.EventRepositoryImpl>()));
+    gh.factory<_i34.LibraryBloc>(
+        () => _i34.LibraryBloc(gh<_i30.LibraryRepositoryImpl>()));
+    gh.factory<_i35.MarkBloc>(
+        () => _i35.MarkBloc(gh<_i30.MarkRepositoryImpl>()));
+    gh.factory<_i36.ProjectBloc>(
+        () => _i36.ProjectBloc(gh<_i30.ProjectRepositoryImpl>()));
+    gh.factory<_i37.StudentBloc>(
+        () => _i37.StudentBloc(gh<_i30.StudentRepositoryImpl>()));
+    gh.factory<_i38.TeacherBloc>(
+        () => _i38.TeacherBloc(gh<_i30.TeacherRepositoryImpl>()));
+    gh.factory<_i39.TorchBloc>(
+        () => _i39.TorchBloc(gh<_i30.TorchesRepositoryImpl>()));
     return this;
   }
 }
