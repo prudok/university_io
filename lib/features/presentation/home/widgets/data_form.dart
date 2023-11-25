@@ -5,6 +5,7 @@ import 'package:university_io/features/presentation/book/widgets/book_form.dart'
 import 'package:university_io/features/presentation/classroom/widgets/classroom_form.dart';
 import 'package:university_io/features/presentation/department/widgets/deparment_form.dart';
 import 'package:university_io/features/presentation/event/widgets/event_form.dart';
+import 'package:university_io/features/presentation/gto/widgets/gto_form.dart';
 import 'package:university_io/features/presentation/library/widgets/library_form.dart';
 import 'package:university_io/features/presentation/mark/widgets/mark_form.dart';
 import 'package:university_io/features/presentation/project/widgets/project_form.dart';
@@ -19,13 +20,14 @@ class DataForm extends StatefulWidget {
   State<DataForm> createState() => _DataFormState();
 }
 
-class _DataFormState extends State<DataForm> with TickerProviderStateMixin {
+class _DataFormState extends State<DataForm>
+    with SingleTickerProviderStateMixin {
   late final TabController _tabController;
 
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 10, vsync: this);
+    _tabController = TabController(length: 11, vsync: this);
   }
 
   @override
@@ -51,6 +53,7 @@ class _DataFormState extends State<DataForm> with TickerProviderStateMixin {
             Tab(icon: Icon(Icons.grade)),
             Tab(icon: Icon(Icons.home_mini)),
             Tab(icon: Icon(Icons.tornado)),
+            Tab(icon: Icon(Icons.sports)),
           ],
         ),
         Expanded(
@@ -67,6 +70,7 @@ class _DataFormState extends State<DataForm> with TickerProviderStateMixin {
               MarkForm(),
               ClassroomForm(),
               TorchForm(),
+              GTOForm(),
             ],
           ),
         ),

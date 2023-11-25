@@ -5,6 +5,7 @@ import 'package:university_io/features/presentation/book/book_view.dart';
 import 'package:university_io/features/presentation/classroom/classroom_view.dart';
 import 'package:university_io/features/presentation/department/department_view.dart';
 import 'package:university_io/features/presentation/event/event_view.dart';
+import 'package:university_io/features/presentation/gto/gto_view.dart';
 import 'package:university_io/features/presentation/home/widgets/data_form.dart';
 import 'package:university_io/features/presentation/library/library_view.dart';
 import 'package:university_io/features/presentation/mark/mark_view.dart';
@@ -116,6 +117,10 @@ class _HomeViewState extends State<HomeView> {
                           icon: Icon(Icons.tornado),
                           label: Text('Torches'),
                         ),
+                        NavigationRailDestination(
+                          icon: Icon(Icons.sports),
+                          label: Text('GTOs'),
+                        ),
                       ],
                     ),
                   ),
@@ -140,6 +145,7 @@ class _HomeViewState extends State<HomeView> {
                 MarkView(),
                 ClassroomView(),
                 TorchView(),
+                GTOView(),
               ],
             ),
           ),

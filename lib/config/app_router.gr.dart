@@ -39,6 +39,12 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const EventView(),
       );
     },
+    GTORoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const GTOView(),
+      );
+    },
     HomeRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -136,6 +142,20 @@ class EventRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'EventRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [GTOView]
+class GTORoute extends PageRouteInfo<void> {
+  const GTORoute({List<PageRouteInfo>? children})
+      : super(
+          GTORoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'GTORoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }
